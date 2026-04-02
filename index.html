@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小學英語通</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f5f6f7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="英語通">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── Design Tokens ── */
+:root{
+  --primary:#005f99;
+  --primary-light:#44a6f6;
+  --primary-grad:linear-gradient(135deg,#005f99,#44a6f6);
+  --secondary:#ffcb2f;
+  --secondary-text:#5a4400;
+  --tertiary:#0c6a24;
+  --tertiary-bg:#a4fda4;
+  --bg:#f5f6f7;
+  --surface:#ffffff;
+  --surface-low:#eff1f2;
+  --surface-mid:#e6e8ea;
+  --surface-high:#e0e3e4;
+  --on-bg:#2c2f30;
+  --on-surface:#2c2f30;
+  --on-surface-var:#595c5d;
+  --red:#c0392b;
+  --red-bg:#fdecea;
+  --green:#0c6a24;
+  --green-bg:#a4fda4;
+  --yellow:#725800;
+  --yellow-bg:#ffcb2f;
+  --shadow:rgba(0,95,153,0.08);
+  --shadow-lg:rgba(0,95,153,0.12);
+  --radius-sm:0.75rem;
+  --radius:1rem;
+  --radius-lg:1.5rem;
+  --radius-xl:2rem;
+  --radius-full:999px;
+  /* keep old names as aliases for activity screens */
+  --bg2:#ffffff;
+  --bg3:#e6e8ea;
+  --accent:#005f99;
+  --accent2:#44a6f6;
+  --text:#2c2f30;
+  --text2:#595c5d;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--on-bg);min-height:100vh;max-width:480px;margin:0 auto;}
+
+/* ── HEADER ── */
+.header{background:rgba(245,246,247,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;}
+.header h1{font-size:17px;font-weight:700;flex:1;color:var(--on-bg);}
+.back-btn{background:var(--surface);border:none;color:var(--on-bg);width:36px;height:36px;border-radius:var(--radius-full);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px var(--shadow);}
+.history-btn{background:var(--surface);border:none;color:var(--primary);padding:6px 14px;border-radius:var(--radius-full);font-size:13px;font-weight:600;cursor:pointer;flex-shrink:0;box-shadow:0 2px 8px var(--shadow);}
+.screen{display:none;padding:16px 16px 32px;}
+.screen.active{display:block;}
+
+/* ── HOME ── */
+.home-hero{text-align:center;padding:28px 0 24px;}
+.home-hero .icon{font-size:56px;display:block;}
+.home-hero h2{font-size:24px;font-weight:800;margin-top:10px;color:var(--on-bg);}
+.home-hero p{color:var(--on-surface-var);font-size:14px;margin-top:6px;font-family:'Lexend',sans-serif;}
+.section-label{font-size:12px;color:var(--on-surface-var);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;margin-top:24px;font-family:'Lexend',sans-serif;}
+.grade-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.grade-card{background:var(--surface);border-radius:var(--radius-lg);padding:20px 10px 16px;text-align:center;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 16px var(--shadow);}
+.grade-card:active:not(.coming-soon){transform:scale(0.96);}
+.grade-card.available:hover{box-shadow:0 6px 24px var(--shadow-lg);transform:translateY(-2px);}
+.grade-card .grade-bubble{width:52px;height:52px;border-radius:var(--radius-full);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;}
+.grade-card .grade-zh{font-size:15px;font-weight:700;color:var(--on-bg);}
+.grade-card .grade-en{font-size:11px;color:var(--on-surface-var);margin-top:2px;font-family:'Lexend',sans-serif;}
+.coming-soon{opacity:0.45;cursor:not-allowed;}
+.grade-card.available .grade-bubble{background:var(--surface-low);}
+.grade-card[data-g="1"] .grade-bubble{background:#dbeafe;}
+.grade-card[data-g="1"] .grade-bubble span{color:#1d4ed8;}
+.grade-card[data-g="2"] .grade-bubble{background:#fef9c3;}
+.grade-card[data-g="2"] .grade-bubble span{color:#92400e;}
+.grade-card[data-g="3"] .grade-bubble{background:#dcfce7;}
+.grade-card[data-g="3"] .grade-bubble span{color:#166534;}
+.grade-card[data-g="4"] .grade-bubble{background:#dbeafe;}
+.grade-card[data-g="4"] .grade-bubble span{color:#1d4ed8;}
+.grade-card[data-g="5"] .grade-bubble{background:#fef9c3;}
+.grade-card[data-g="5"] .grade-bubble span{color:#92400e;}
+.grade-card[data-g="6"] .grade-bubble{background:#f0fdf4;}
+.grade-card[data-g="6"] .grade-bubble span{color:#166534;}
+.hint-card{background:linear-gradient(135deg,#dbeafe,#eff6ff);border-radius:var(--radius-lg);padding:16px;margin-top:20px;display:flex;align-items:flex-start;gap:12px;}
+.hint-card .hint-icon{width:38px;height:38px;border-radius:var(--radius-full);background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.hint-card .hint-title{font-size:14px;font-weight:700;color:var(--primary);}
+.hint-card .hint-body{font-size:13px;color:var(--on-surface-var);margin-top:4px;line-height:1.5;}
+
+/* ── SEMESTER ── */
+.sem-page-chip{display:inline-block;background:var(--surface-low);color:var(--primary);font-size:12px;font-weight:600;padding:4px 12px;border-radius:var(--radius-full);margin-bottom:12px;font-family:'Lexend',sans-serif;}
+.sem-page-title{font-size:22px;font-weight:800;color:var(--on-bg);margin-bottom:4px;}
+.sem-page-sub{font-size:13px;color:var(--on-surface-var);margin-bottom:24px;font-family:'Lexend',sans-serif;}
+.semester-list{display:flex;flex-direction:column;gap:16px;}
+.semester-card{background:var(--surface);border-radius:var(--radius-xl);padding:20px;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px var(--shadow);position:relative;overflow:hidden;}
+.semester-card:active:not(.coming-soon){transform:scale(0.98);}
+.semester-card.coming-soon{opacity:0.5;cursor:not-allowed;}
+.sem-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;}
+.sem-emoji-wrap{width:52px;height:52px;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;font-size:26px;}
+.sem-badge{font-size:11px;font-weight:600;padding:4px 10px;border-radius:var(--radius-full);font-family:'Lexend',sans-serif;}
+.sem-badge.done{background:#dcfce7;color:#166534;}
+.sem-badge.ongoing{background:#dbeafe;color:#1d4ed8;}
+.sem-badge.locked{background:var(--surface-mid);color:var(--on-surface-var);}
+.sem-name{font-size:20px;font-weight:800;color:var(--on-bg);margin-bottom:2px;}
+.sem-en{font-size:13px;color:var(--on-surface-var);font-family:'Lexend',sans-serif;}
+.sem-prog-bar{height:6px;background:var(--surface-mid);border-radius:var(--radius-full);margin:14px 0 10px;overflow:hidden;}
+.sem-prog-fill{height:100%;background:var(--primary-grad);border-radius:var(--radius-full);transition:width 0.5s;}
+.sem-prog-pct{font-size:12px;font-weight:700;color:var(--primary);text-align:right;margin-bottom:10px;font-family:'Lexend',sans-serif;}
+.sem-footer{display:flex;align-items:center;justify-content:space-between;}
+.sem-footer-note{font-size:13px;color:var(--on-surface-var);font-family:'Lexend',sans-serif;}
+.sem-action-btn{background:var(--primary-grad);border:none;color:white;padding:10px 20px;border-radius:var(--radius-full);font-size:14px;font-weight:700;cursor:pointer;}
+.sem-action-arrow{width:36px;height:36px;border-radius:var(--radius-full);background:var(--primary);color:white;border:none;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;}
+
+/* ── UNITS ── */
+.units-progress-card{background:var(--surface);border-radius:var(--radius-lg);padding:16px 18px;margin-bottom:20px;box-shadow:0 4px 16px var(--shadow);}
+.units-progress-label{font-size:12px;color:var(--on-surface-var);font-family:'Lexend',sans-serif;margin-bottom:4px;}
+.units-progress-pct{font-size:28px;font-weight:800;color:var(--primary);}
+.units-prog-bar{height:6px;background:var(--surface-mid);border-radius:var(--radius-full);margin-top:8px;overflow:hidden;}
+.units-prog-fill{height:100%;background:var(--primary-grad);border-radius:var(--radius-full);transition:width 0.5s;}
+.unit-list{display:flex;flex-direction:column;gap:14px;}
+.unit-card{background:var(--surface);border-radius:var(--radius-lg);padding:16px 18px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:14px;box-shadow:0 4px 16px var(--shadow);}
+.unit-card:active{transform:scale(0.98);}
+.unit-card:hover{box-shadow:0 6px 24px var(--shadow-lg);}
+.unit-num{width:48px;height:48px;border-radius:var(--radius-full);background:var(--primary-grad);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:white;flex-shrink:0;}
+.unit-info{flex:1;}
+.unit-title{font-size:15px;font-weight:700;color:var(--primary);}
+.unit-subtitle{font-size:13px;color:var(--on-surface-var);margin-top:3px;}
+.unit-progress{display:flex;gap:5px;margin-top:8px;}
+.unit-dot{width:9px;height:9px;border-radius:var(--radius-full);background:var(--surface-mid);}
+.unit-dot.done{background:var(--tertiary);}
+.unit-arrow{color:var(--on-surface-var);font-size:18px;}
+
+/* ── MODES ── */
+.mode-hero{background:var(--primary-grad);border-radius:var(--radius-xl);padding:20px;margin-bottom:20px;position:relative;overflow:hidden;}
+.mode-hero::after{content:'';position:absolute;right:-20px;bottom:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,0.1);}
+.mode-hero::before{content:'';position:absolute;right:40px;bottom:10px;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,0.07);}
+.mode-hero .unit-badge{font-size:12px;font-weight:600;background:rgba(255,255,255,0.2);color:white;padding:4px 12px;border-radius:var(--radius-full);display:inline-block;margin-bottom:10px;font-family:'Lexend',sans-serif;}
+.mode-hero h2{font-size:22px;font-weight:800;color:white;line-height:1.3;}
+.mode-hero .prog-label{font-size:12px;color:rgba(255,255,255,0.8);margin-top:14px;margin-bottom:6px;font-family:'Lexend',sans-serif;}
+.mode-hero .hero-prog-bar{height:6px;background:rgba(255,255,255,0.25);border-radius:var(--radius-full);overflow:hidden;}
+.mode-hero .hero-prog-fill{height:100%;background:var(--secondary);border-radius:var(--radius-full);}
+.mode-hero .prog-pct{font-size:12px;color:rgba(255,255,255,0.9);font-weight:700;text-align:right;margin-top:4px;font-family:'Lexend',sans-serif;}
+.mode-grid{display:flex;flex-direction:column;gap:12px;}
+.mode-card{background:var(--surface);border-radius:var(--radius-lg);padding:16px 18px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:14px;box-shadow:0 4px 16px var(--shadow);}
+.mode-card:active{transform:scale(0.98);}
+.mode-card:hover{box-shadow:0 6px 24px var(--shadow-lg);}
+.mode-icon{font-size:22px;width:48px;height:48px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.mode-icon.story{background:#fef3c7;}
+.mode-icon.discover{background:#dcfce7;}
+.mode-icon.sentence{background:#ede9fe;}
+.mode-icon.phonics{background:#dbeafe;}
+.mode-icon.vocab{background:#fce7f3;}
+.mode-info{flex:1;}
+.mode-title{font-size:15px;font-weight:700;color:var(--on-bg);}
+.mode-desc{font-size:12px;color:var(--on-surface-var);margin-top:3px;font-family:'Lexend',sans-serif;}
+.mode-score-chip{font-size:12px;font-weight:700;color:var(--secondary-text);background:var(--yellow-bg);padding:4px 10px;border-radius:var(--radius-full);white-space:nowrap;font-family:'Lexend',sans-serif;}
+.mode-done-chip{font-size:18px;}
+.mode-check{color:var(--tertiary);font-size:22px;}
+.challenge-card{background:linear-gradient(135deg,#dcfce7,#bbf7d0);border-radius:var(--radius-lg);padding:16px 18px;display:flex;align-items:center;gap:14px;margin-top:4px;}
+.challenge-icon{font-size:28px;}
+.challenge-title{font-size:14px;font-weight:700;color:var(--tertiary);}
+.challenge-sub{font-size:12px;color:#166534;margin-top:3px;font-family:'Lexend',sans-serif;}
+
+/* ── ACTIVITY SCREENS (keep functional, light-ify) ── */
+.speed-control{display:flex;align-items:center;gap:8px;margin-bottom:12px;background:var(--surface);padding:10px 14px;border-radius:var(--radius-lg);box-shadow:0 2px 8px var(--shadow);}
+.speed-label{font-size:13px;color:var(--on-surface-var);flex:1;font-family:'Lexend',sans-serif;}
+.speed-btn{background:var(--surface-mid);border:none;color:var(--on-surface-var);padding:6px 14px;border-radius:var(--radius-full);font-size:13px;cursor:pointer;font-family:'Lexend',sans-serif;}
+.speed-btn.active{background:var(--primary);color:white;}
+.story-container{display:flex;flex-direction:column;gap:10px;}
+.story-frame{background:var(--surface);border-radius:var(--radius-lg);padding:14px;border-left:4px solid var(--surface-mid);transition:all 0.3s;box-shadow:0 2px 8px var(--shadow);}
+.story-frame.active-frame{border-left-color:var(--secondary);background:#fffbeb;box-shadow:0 4px 16px rgba(255,203,47,0.2);}
+.frame-num{font-size:11px;color:var(--on-surface-var);margin-bottom:4px;font-family:'Lexend',sans-serif;}
+.frame-speaker{display:inline-block;font-size:11px;font-weight:700;background:var(--primary);color:white;padding:2px 10px;border-radius:var(--radius-full);margin-bottom:6px;}
+.frame-text{font-size:17px;font-weight:600;line-height:1.5;color:var(--on-bg);}
+.frame-zh{font-size:13px;color:var(--on-surface-var);margin-top:5px;}
+.playback-controls{position:sticky;bottom:0;background:rgba(245,246,247,0.9);backdrop-filter:blur(8px);padding:12px 0;display:flex;gap:10px;align-items:center;}
+.frame-speak-btn{background:var(--surface);border:none;color:var(--primary);font-size:13px;padding:5px 12px;border-radius:var(--radius-full);cursor:pointer;margin-top:8px;display:inline-flex;align-items:center;gap:4px;box-shadow:0 2px 8px var(--shadow);font-family:'Lexend',sans-serif;}
+.correct-speak-btn{background:var(--primary-grad);border:none;color:white;font-size:14px;padding:10px 24px;border-radius:var(--radius-full);cursor:pointer;display:flex;align-items:center;gap:6px;margin:10px auto;}
+.spell-section{background:var(--surface);border-radius:var(--radius-lg);padding:18px;margin-top:14px;box-shadow:0 2px 8px var(--shadow);}
+.spell-title{font-size:14px;color:var(--on-surface-var);margin-bottom:12px;text-align:center;font-family:'Lexend',sans-serif;}
+
+.spell-keyboard-input{width:100%;background:var(--bg);border:2px solid var(--primary);border-radius:var(--radius-lg);color:var(--on-bg);font-size:22px;font-weight:700;letter-spacing:4px;text-align:center;padding:12px 16px;margin-bottom:12px;outline:none;caret-color:var(--primary);box-sizing:border-box;}
+.spell-keyboard-input:focus{border-color:var(--primary-light);box-shadow:0 0 0 3px rgba(0,95,153,0.15);}
+.spell-keyboard-input::placeholder{color:var(--on-surface-var);font-size:15px;letter-spacing:normal;font-weight:400;}
+.spell-actions{display:flex;gap:8px;justify-content:center;}
+.spell-check-btn{background:var(--primary-grad);border:none;color:white;padding:10px 28px;border-radius:var(--radius-full);font-size:15px;font-weight:600;cursor:pointer;}
+.spell-clear-btn{background:var(--surface-mid);border:none;color:var(--on-surface-var);padding:10px 18px;border-radius:var(--radius-full);font-size:15px;cursor:pointer;}
+.play-btn{flex:1;background:var(--primary-grad);border:none;color:white;padding:14px;border-radius:var(--radius-lg);font-size:16px;font-weight:700;cursor:pointer;}
+.play-btn:disabled{opacity:0.5;cursor:not-allowed;}
+.stop-btn{background:var(--surface-mid);border:none;color:var(--on-surface-var);padding:14px 18px;border-radius:var(--radius-lg);font-size:16px;cursor:pointer;}
+.quiz-section{margin-top:16px;background:var(--surface);border-radius:var(--radius-lg);padding:16px;box-shadow:0 2px 8px var(--shadow);}
+.quiz-section h3{font-size:15px;font-weight:700;margin-bottom:12px;color:var(--on-bg);}
+.quiz-q{font-size:15px;font-weight:600;margin-bottom:12px;line-height:1.5;color:var(--on-bg);}
+.quiz-options{display:flex;flex-direction:column;gap:8px;}
+.quiz-opt{background:var(--surface-low);border:2px solid transparent;color:var(--on-bg);padding:12px 16px;border-radius:var(--radius-lg);font-size:15px;cursor:pointer;text-align:left;transition:all 0.2s;width:100%;}
+.quiz-opt:hover:not(:disabled){border-color:var(--primary);background:white;}
+.quiz-opt.correct{border-color:var(--tertiary)!important;background:var(--green-bg)!important;color:var(--tertiary)!important;}
+.quiz-opt.wrong{border-color:var(--red)!important;background:var(--red-bg)!important;color:var(--red)!important;}
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:14px;}
+.quiz-counter{font-size:13px;color:var(--on-surface-var);font-family:'Lexend',sans-serif;}
+.next-btn{background:var(--primary-grad);border:none;color:white;padding:10px 22px;border-radius:var(--radius-full);font-size:14px;cursor:pointer;display:none;font-weight:600;}
+.progress-bar-wrap{height:5px;background:var(--surface-mid);border-radius:var(--radius-full);margin-bottom:14px;}
+.progress-bar-fill{height:100%;background:var(--primary-grad);border-radius:var(--radius-full);transition:width 0.3s;}
+.sentence-card{background:var(--surface);border-radius:var(--radius-lg);padding:20px;margin-bottom:14px;box-shadow:0 2px 8px var(--shadow);}
+.sentence-zh{font-size:16px;color:var(--on-surface-var);text-align:center;margin-bottom:16px;}
+.sentence-display{font-size:20px;font-weight:700;text-align:center;margin-bottom:20px;line-height:1.8;color:var(--on-bg);}
+.blank-slot{display:inline-block;min-width:80px;border-bottom:3px solid var(--primary);padding:0 8px;color:var(--primary);}
+.choices-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.choice-btn{background:var(--surface-low);border:2px solid transparent;color:var(--on-bg);padding:14px 10px;border-radius:var(--radius-lg);font-size:15px;cursor:pointer;transition:all 0.2s;width:100%;}
+.choice-btn:hover:not(:disabled){border-color:var(--primary);background:white;}
+.choice-btn.correct{border-color:var(--tertiary)!important;background:var(--green-bg)!important;color:var(--tertiary)!important;}
+.choice-btn.wrong{border-color:var(--red)!important;background:var(--red-bg)!important;color:var(--red)!important;}
+.phonics-rule-card{background:var(--surface);border-radius:var(--radius-lg);padding:16px;margin-bottom:14px;box-shadow:0 2px 8px var(--shadow);}
+.phonics-rule-title{font-size:16px;font-weight:700;margin-bottom:12px;color:var(--on-bg);}
+.phonics-pattern{display:flex;gap:16px;justify-content:center;margin:12px 0;}
+.pattern-box{text-align:center;background:var(--surface-low);padding:12px 16px;border-radius:var(--radius-lg);flex:1;}
+.pattern-label{font-size:11px;color:var(--on-surface-var);margin-bottom:6px;font-family:'Lexend',sans-serif;}
+.pattern-key{font-size:20px;font-weight:800;color:var(--on-bg);}
+.pattern-example{font-size:13px;color:var(--on-surface-var);margin-top:4px;}
+.phonics-words{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;}
+.phonics-word-btn{background:var(--surface-low);border:none;color:var(--on-bg);padding:10px 4px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;text-align:center;}
+.phonics-word-btn .wtype{font-size:10px;color:var(--on-surface-var);display:block;margin-top:2px;font-family:'Lexend',sans-serif;}
+.phonics-quiz-card{background:var(--surface);border-radius:var(--radius-lg);padding:16px;box-shadow:0 2px 8px var(--shadow);}
+.phonics-quiz-word{font-size:38px;font-weight:800;text-align:center;margin:16px 0;cursor:pointer;letter-spacing:2px;color:var(--primary);}
+.phonics-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.phonics-choice{background:var(--surface-low);border:2px solid transparent;color:var(--on-bg);padding:16px 10px;border-radius:var(--radius-lg);font-size:14px;font-weight:600;cursor:pointer;text-align:center;transition:all 0.2s;width:100%;}
+.phonics-choice:hover:not(:disabled){border-color:var(--primary);background:white;}
+.phonics-choice.correct{border-color:var(--tertiary)!important;background:var(--green-bg)!important;color:var(--tertiary)!important;}
+.phonics-choice.wrong{border-color:var(--red)!important;background:var(--red-bg)!important;color:var(--red)!important;}
+.vocab-card{background:var(--surface);border-radius:var(--radius-lg);padding:20px;margin-bottom:14px;box-shadow:0 2px 8px var(--shadow);}
+.vocab-word-display{text-align:center;}
+.the-word{font-size:40px;font-weight:800;letter-spacing:2px;color:var(--primary);}
+.speak-btn{background:var(--primary-grad);border:none;color:white;padding:8px 22px;border-radius:var(--radius-full);font-size:14px;cursor:pointer;margin:10px auto 0;display:block;font-weight:600;}
+.vocab-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.vocab-choice{background:var(--surface-low);border:2px solid transparent;color:var(--on-bg);padding:14px 10px;border-radius:var(--radius-lg);font-size:15px;cursor:pointer;text-align:center;transition:all 0.2s;width:100%;}
+.vocab-choice:hover:not(:disabled){border-color:var(--primary);background:white;}
+.vocab-choice.correct{border-color:var(--tertiary)!important;background:var(--green-bg)!important;color:var(--tertiary)!important;}
+.vocab-choice.wrong{border-color:var(--red)!important;background:var(--red-bg)!important;color:var(--red)!important;}
+.result-card{background:var(--surface);border-radius:var(--radius-xl);padding:32px 24px;text-align:center;margin:20px 0;box-shadow:0 8px 32px var(--shadow-lg);}
+.result-emoji{font-size:72px;}
+.result-score{font-size:52px;font-weight:800;margin:12px 0;color:var(--primary);}
+.result-label{font-size:16px;color:var(--on-surface-var);}
+.result-detail{font-size:14px;color:var(--on-surface-var);margin-top:10px;font-family:'Lexend',sans-serif;}
+.result-actions{display:flex;gap:10px;margin-top:20px;}
+.result-actions button{flex:1;padding:14px;border-radius:var(--radius-full);font-size:15px;font-weight:700;cursor:pointer;border:none;}
+.retry-btn{background:var(--surface-mid);color:var(--on-bg);}
+.home-return-btn{background:var(--primary-grad);color:white;}
+.history-item{background:var(--surface);border-radius:var(--radius-lg);padding:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 8px var(--shadow);}
+.history-info .h-unit{font-size:14px;font-weight:700;color:var(--on-bg);}
+.history-info .h-mode{font-size:12px;color:var(--on-surface-var);margin-top:3px;}
+.history-info .h-date{font-size:11px;color:var(--on-surface-var);}
+.history-score{font-size:18px;font-weight:800;color:var(--primary);}
+.clear-btn{width:100%;background:var(--red-bg);border:none;color:var(--red);padding:12px;border-radius:var(--radius-lg);font-size:14px;cursor:pointer;margin-top:12px;font-weight:600;}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--on-bg);color:white;padding:10px 22px;border-radius:var(--radius-full);font-size:14px;opacity:0;transition:all 0.3s;pointer-events:none;z-index:999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.15);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+<div class="header">
+  <button class="back-btn" id="backBtn" onclick="goBack()" style="display:none">←</button>
+  <h1 id="headerTitle">小學英語通</h1>
+  <button class="history-btn" id="historyBtn" onclick="showHistory()">🕐 紀錄</button>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- HOME -->
+<div class="screen active" id="screen-home">
+  <div class="home-hero">
+    <span class="icon">📖</span>
+    <h2>小學英語通</h2>
+    <p>挑選適合你的課程內容，開始學習之旅！</p>
+  </div>
+  <div class="section-label">選擇你的年級</div>
+  <div class="grade-grid">
+    <div class="grade-card coming-soon" data-g="1" onclick="showComingSoon()">
+      <div class="grade-bubble"><span>1</span></div>
+      <div class="grade-zh">一年級</div><div class="grade-en">Grade 1</div>
+    </div>
+    <div class="grade-card coming-soon" data-g="2" onclick="showComingSoon()">
+      <div class="grade-bubble"><span>2</span></div>
+      <div class="grade-zh">二年級</div><div class="grade-en">Grade 2</div>
+    </div>
+    <div class="grade-card available" data-g="3" onclick="selectGrade(3)">
+      <div class="grade-bubble"><span>3</span></div>
+      <div class="grade-zh">三年級</div><div class="grade-en">Grade 3</div>
+    </div>
+    <div class="grade-card available" data-g="4" onclick="selectGrade(4)">
+      <div class="grade-bubble"><span>4</span></div>
+      <div class="grade-zh">四年級</div><div class="grade-en">Grade 4</div>
+    </div>
+    <div class="grade-card coming-soon" data-g="5" onclick="showComingSoon()">
+      <div class="grade-bubble"><span>5</span></div>
+      <div class="grade-zh">五年級</div><div class="grade-en">Grade 5</div>
+    </div>
+    <div class="grade-card coming-soon" data-g="6" onclick="showComingSoon()">
+      <div class="grade-bubble"><span>6</span></div>
+      <div class="grade-zh">六年級</div><div class="grade-en">Grade 6</div>
+    </div>
+  </div>
+  <div class="hint-card">
+    <div class="hint-icon">💡</div>
+    <div>
+      <div class="hint-title">溫馨提示</div>
+      <div class="hint-body">你可以隨時在設定中更改年級，所有的學習進度將會被安全保存。</div>
+    </div>
+  </div>
+</div>
+
+<!-- SEMESTER -->
+<div class="screen" id="screen-semester">
+  <div id="semPageChip" class="sem-page-chip">Grade English</div>
+  <div class="sem-page-title" id="semLabel">選擇學期</div>
+  <div class="sem-page-sub">Ready to continue your learning journey?</div>
+  <div class="semester-list">
+    <div class="semester-card" id="semCard上" onclick="selectSemesterIfAvailable('上')">
+      <div class="sem-card-top">
+        <div class="sem-emoji-wrap" style="background:#dcfce7;">🌱</div>
+        <div class="sem-badge locked" id="semBadge上">即將推出</div>
+      </div>
+      <div class="sem-name">上學期</div>
+      <div class="sem-en">1st Semester</div>
+      <div class="sem-prog-bar"><div class="sem-prog-fill" id="semFill上" style="width:0%"></div></div>
+      <div class="sem-prog-pct" id="semPct上">0%</div>
+      <div class="sem-footer">
+        <div class="sem-footer-note" id="semSub上">即將推出</div>
+        <button class="sem-action-arrow" id="semArrow上">→</button>
+      </div>
+    </div>
+    <div class="semester-card" id="semCard下" onclick="selectSemesterIfAvailable('下')">
+      <div class="sem-card-top">
+        <div class="sem-emoji-wrap" style="background:#fef9c3;">🌻</div>
+        <div class="sem-badge locked" id="semBadge下">即將推出</div>
+      </div>
+      <div class="sem-name">下學期</div>
+      <div class="sem-en">2nd Semester</div>
+      <div class="sem-prog-bar"><div class="sem-prog-fill" id="semFill下" style="width:0%"></div></div>
+      <div class="sem-prog-pct" id="semPct下">0%</div>
+      <div class="sem-footer">
+        <div class="sem-footer-note" id="semSub下">即將推出</div>
+        <button class="sem-action-arrow" id="semArrow下">→</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UNITS -->
+<div class="screen" id="screen-units">
+  <div class="units-progress-card">
+    <div class="units-progress-label">學期進度</div>
+    <div class="units-progress-pct" id="unitsPct">0%</div>
+    <div class="units-prog-bar"><div class="units-prog-fill" id="unitsPctFill" style="width:0%"></div></div>
+  </div>
+  <div class="unit-list" id="unitList"></div>
+</div>
+
+<!-- MODES -->
+<div class="screen" id="screen-modes">
+  <div class="mode-hero">
+    <div class="unit-badge" id="modeBadge">UNIT 1</div>
+    <h2 id="modeTitle">What Time Is It?</h2>
+    <div class="prog-label">完成進度</div>
+    <div class="hero-prog-bar"><div class="hero-prog-fill" id="modeProgFill" style="width:0%"></div></div>
+    <div class="prog-pct" id="modeProgPct">0% Done</div>
+  </div>
+  <div class="mode-grid" id="modeGrid"></div>
+  <div class="challenge-card" style="margin-top:12px;">
+    <div class="challenge-icon">🏅</div>
+    <div>
+      <div class="challenge-title">Final Challenge!</div>
+      <div class="challenge-sub">完成所有練習，解鎖本單元成就徽章！</div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTIVITY -->
+<div class="screen" id="screen-activity"><div id="activityContent"></div></div>
+
+<!-- RESULT -->
+<div class="screen" id="screen-result">
+  <div class="result-card">
+    <div class="result-emoji" id="resultEmoji">🎉</div>
+    <div class="result-score" id="resultScore">8/10</div>
+    <div class="result-label" id="resultLabel">太棒了！</div>
+    <div class="result-detail" id="resultDetail"></div>
+  </div>
+  <div class="result-actions">
+    <button class="retry-btn" onclick="retryActivity()">🔄 再練一次</button>
+    <button class="home-return-btn" onclick="goToModes()">返回練習選單</button>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<div class="screen" id="screen-history">
+  <div id="historyList"></div>
+  <button class="clear-btn" onclick="clearHistory()">🗑️ 清除所有紀錄</button>
+</div>
+
+<script>
+const COURSE_DATA={grade3:{下:{units:[
+{id:'g3u_u1',num:1,title:"Is That a Dog?",titleZh:"那是一隻狗嗎？",
+story:{frames:[
+{speaker:"Rocky",text:"Good morning.",zh:"早安。"},
+{speaker:"Groomer",text:"Good morning.",zh:"早安。"},
+{speaker:"Mia",text:"Is that a dog?",zh:"那是一隻狗嗎？"},
+{speaker:"Groomer",text:"Yes, it is. It's a small dog.",zh:"是的，它是。它是一隻小狗。"},
+{speaker:"Abu",text:"Cool.",zh:"酷！"},
+{speaker:"Groomer",text:"This is my dog, Chester.",zh:"這是我的狗，Chester。"},
+{speaker:"Rocky",text:"Hi, Chester!",zh:"嗨，Chester！"},
+{speaker:"Mia",text:"Is that a dog?",zh:"那是一隻狗嗎？"},
+{speaker:"Groomer",text:"Yes. That's right.",zh:"是的，正確。"},
+{speaker:"Amber",text:"Look! It's big! Is that a dog?",zh:"看！牠很大！那是一隻狗嗎？"},
+{speaker:"Groomer",text:"No, it's not. Try again.",zh:"不，它不是。再試一次。"},
+{speaker:"Amber",text:"Is that a ...?",zh:"那是一隻…？"},
+{speaker:"Groomer",text:"It's a cat.",zh:"它是一隻貓。"},
+{speaker:"Amber/Mia",text:"Wow! Cool!",zh:"哇！酷！"},
+{speaker:"Groomer",text:"Abu!",zh:"Abu！"}
+],quiz:[
+{q:"What is Chester?",opts:["a big dog","a small dog","a cat"],ans:1},
+{q:"Is the big animal a dog?",opts:["Yes, it is.","No, it's not.","Yes, that's right."],ans:1},
+{q:"What is the big animal?",opts:["a bird","a fish","a cat"],ans:2}
+]},
+discover:{title:"Animal Shelter 動物收容所",frames:[
+{text:"An animal shelter is a home for animals.",zh:"動物收容所是動物的家。"},
+{text:"Animals in the shelter: brown dog (Name: Pup, 1 year old).",zh:"收容所的動物：棕色狗（名字：Pup，1歲）。"},
+{text:"White rabbit (Name: Bunny, 2 years old).",zh:"白色兔子（名字：Bunny，2歲）。"},
+{text:"Small cat (Name: Kitty, 3 years old).",zh:"小貓（名字：Kitty，3歲）。"},
+{text:"Treat pets well.",zh:"善待寵物。"},
+{text:"Adopt pets. Don't buy pets.",zh:"領養寵物。不購買寵物。"}
+],quiz:[
+{q:"What is an animal shelter?",opts:["a pet shop","a home for animals","a zoo"],ans:1},
+{q:"How old is Pup the dog?",opts:["1 year old","2 years old","3 years old"],ans:0},
+{q:"What should we do with pets?",opts:["buy them","adopt them","ignore them"],ans:1}
+]},
+sentences:[
+{zh:"那是一隻狗嗎？",before:"Is ",after:" a dog?",blank:"that",opts:["that","this","it","he"]},
+{zh:"是的，它是。",before:"Yes, ",after:" is.",blank:"it",opts:["it","he","she","they"]},
+{zh:"不，它不是。",before:"No, it's ",after:".",blank:"not",opts:["not","yes","big","small"]},
+{zh:"它是一隻小狗。",before:"It's a ",after:" dog.",blank:"small",opts:["small","big","red","old"]},
+{zh:"再試一次。",before:"Try ",after:".",blank:"again",opts:["again","now","here","later"]},
+{zh:"正確。",before:"That's ",after:".",blank:"right",opts:["right","wrong","cool","big"]}
+],
+phonics:{rule:"短母音 -ed / -et",
+short:{pattern:"-ed",key:"/ɛd/",example:"bed",color:"#f87171",words:["bed","red","Ted","fed"]},
+magic:{pattern:"-et",key:"/ɛt/",example:"pet",color:"#4ade80",words:["pet","get","wet","let"]},
+quiz:[{word:"bed",type:"short"},{word:"pet",type:"magic"},{word:"red",type:"short"},{word:"get",type:"magic"},{word:"wet",type:"magic"},{word:"Ted",type:"short"}]},
+vocab:{words:["dog","cat","bird","fish","big","small","cool","Try again","That's right","Good morning","Yes, it is","No, it's not"],
+zhMap:{"dog":"狗","cat":"貓","bird":"鳥","fish":"魚","big":"大的","small":"小的","cool":"酷","Try again":"再試一次","That's right":"正確","Good morning":"早安","Yes, it is":"是的，它是","No, it's not":"不，它不是"}}},
+
+{id:'g3u_u2',num:2,title:"Can You Swim?",titleZh:"你會游泳嗎？",
+story:{frames:[
+{speaker:"Mia",text:"Let's go!",zh:"走吧！"},
+{speaker:"Edison",text:"Help!",zh:"救命！"},
+{speaker:"Mia",text:"You can do it!",zh:"你做得到！"},
+{speaker:"Coach",text:"Good job!",zh:"做得好！"},
+{speaker:"Coach",text:"Can you swim?",zh:"你會游泳嗎？"},
+{speaker:"Abu",text:"No, I can't.",zh:"不，我不會。"},
+{speaker:"Coach",text:"What can you do?",zh:"你能做什麼？"},
+{speaker:"Abu",text:"I can jump.",zh:"我會跳。"},
+{speaker:"Mia",text:"Wow! Nice!",zh:"哇！棒極了！"},
+{speaker:"Rocky",text:"I can dance.",zh:"我會跳舞。"},
+{speaker:"Coach",text:"That's right! Good job!",zh:"正確！做得好！"},
+{speaker:"Teacher",text:"Can you read?",zh:"你會閱讀嗎？"},
+{speaker:"Rocky",text:"Yes, I can.",zh:"是的，我會。"},
+{speaker:"Rocky",text:"Look! I can draw.",zh:"看！我會畫圖。"},
+{speaker:"Abu",text:"Is it ... a pig?",zh:"它是…一隻豬嗎？"}
+],quiz:[
+{q:"Can Abu swim?",opts:["Yes, he can.","No, he can't.","Yes, she can."],ans:1},
+{q:"What can Abu do?",opts:["swim","dance","jump"],ans:2},
+{q:"What can Rocky do?",opts:["swim and jump","dance and draw","sing and read"],ans:1}
+]},
+discover:{title:"Pool Safety 游泳池安全守則",frames:[
+{text:"NO RUNNING — Do not run near the pool.",zh:"禁止奔跑 — 請勿在泳池附近奔跑。"},
+{text:"NO PUSHING — Do not push others.",zh:"禁止推擠 — 請勿推擠他人。"},
+{text:"NO DIVING — Do not dive into the pool.",zh:"禁止跳水 — 請勿跳入泳池。"},
+{text:"NO FOOD OR DRINKS — Do not eat or drink at the pool.",zh:"禁止飲食 — 請勿在泳池附近飲食。"},
+{text:"Stay safe and have fun!",zh:"注意安全，盡情享樂！"}
+],quiz:[
+{q:"Can you run near the pool?",opts:["Yes, you can.","No, you can't.","Sometimes."],ans:1},
+{q:"Can you eat food at the pool?",opts:["Yes, of course.","No, you can't.","Only snacks."],ans:1},
+{q:"Can you dive into the pool?",opts:["Yes, you can.","No, diving is not allowed.","Only if you can swim."],ans:1}
+]},
+sentences:[
+{zh:"你會游泳嗎？",before:"Can you ",after:"?",blank:"swim",opts:["swim","dance","jump","sing"]},
+{zh:"是的，我會。",before:"Yes, I ",after:".",blank:"can",opts:["can","can't","do","am"]},
+{zh:"不，我不會。",before:"No, I ",after:".",blank:"can't",opts:["can't","can","don't","won't"]},
+{zh:"你能做什麼？",before:"What can ",after:" do?",blank:"you",opts:["you","he","she","they"]},
+{zh:"我會唱歌。",before:"I can ",after:".",blank:"sing",opts:["sing","swim","run","fly"]},
+{zh:"走吧！",before:"Let's ",after:"!",blank:"go",opts:["go","run","play","sing"]}
+],
+phonics:{rule:"短母音 -ig / -ick",
+short:{pattern:"-ig",key:"/ɪg/",example:"big",color:"#f87171",words:["big","dig","pig","wig"]},
+magic:{pattern:"-ick",key:"/ɪk/",example:"kick",color:"#4ade80",words:["kick","Nick","sick","lick"]},
+quiz:[{word:"big",type:"short"},{word:"kick",type:"magic"},{word:"dig",type:"short"},{word:"Nick",type:"magic"},{word:"sick",type:"magic"},{word:"pig",type:"short"}]},
+vocab:{words:["dance","draw","jump","read","sing","swim","write","can","can't","Good job","Nice","Let's go","Help","You can do it"],
+zhMap:{"dance":"跳舞","draw":"畫圖","jump":"跳","read":"閱讀","sing":"唱歌","swim":"游泳","write":"寫字","can":"能夠","can't":"不能","Good job":"做得好","Nice":"棒極了","Let's go":"走吧","Help":"救命/幫忙","You can do it":"你做得到"}}},
+
+{id:'g3u_u3',num:3,title:"Who's She?",titleZh:"她是誰？",
+story:{frames:[
+{speaker:"Rocky",text:"Who's she?",zh:"她是誰？"},
+{speaker:"Edison",text:"She's my mother.",zh:"她是我的媽媽。"},
+{speaker:"Rocky",text:"Who's he?",zh:"他是誰？"},
+{speaker:"Mia",text:"I don't know.",zh:"我不知道。"},
+{speaker:"Edison",text:"Umm ... he's my ... father.",zh:"嗯…他是我的…爸爸。"},
+{speaker:"Edison",text:"Good afternoon, Grandma!",zh:"奶奶，午安！"},
+{speaker:"Grandma",text:"Good afternoon, Edison!",zh:"Edison，午安！"},
+{speaker:"Grandma",text:"What's that? Is it a cat?",zh:"那是什麼？那是一隻貓嗎？"},
+{speaker:"Rocky/Edison",text:"No, it's not. It's ....",zh:"不，它不是。它是…"},
+{speaker:"Abu",text:"Hi, I'm Abu.",zh:"嗨，我是 Abu。"},
+{speaker:"Grandma",text:"Wow! He's tall.",zh:"哇！他好高。"},
+{speaker:"Rocky",text:"Who's she?",zh:"她是誰？"},
+{speaker:"Edison",text:"She's my sister.",zh:"她是我的姊姊。"},
+{speaker:"Grandma",text:"Nice to meet you.",zh:"很高興認識你。"},
+{speaker:"Rocky",text:"Look! I can draw.",zh:"看！我會畫圖。"},
+{speaker:"Grandma",text:"Nice to meet you, too.",zh:"我也很高興認識你。"},
+{speaker:"Grandma",text:"Great! Abu, can you draw?",zh:"太棒了！Abu，你會畫圖嗎？"},
+{speaker:"Rocky",text:"Yes, I can.",zh:"是的，我會。"},
+{speaker:"Edison",text:"Bye, Grandma.",zh:"奶奶，再見。"},
+{speaker:"Grandma",text:"Goodbye, everyone.",zh:"大家再見。"}
+],quiz:[
+{q:"Who is Edison's mother?",opts:["his sister","his grandma","the woman in the drawing"],ans:2},
+{q:"Who is tall?",opts:["Rocky","Abu","Edison"],ans:1},
+{q:"Can Rocky draw?",opts:["Yes, he can.","No, he can't.","I don't know."],ans:0}
+]},
+discover:{title:"Stamp Art 蓋印畫",frames:[
+{text:"Stamp Art is fun! You can make art with your fingers, hands, and feet.",zh:"蓋印畫很有趣！你可以用手指、手和腳創作畫。"},
+{text:"Materials: pencils or markers, ink pads, and paper.",zh:"材料：鉛筆或麥克筆、印台、紙張。"},
+{text:"Step 1: Dip your finger in the ink pad.",zh:"步驟一：把手指沾在印台上。"},
+{text:"Step 2: Press your finger on the paper.",zh:"步驟二：把手指按在紙上。"},
+{text:"Step 3: Draw and write to complete your art.",zh:"步驟三：畫圖寫字完成作品。"},
+{text:"A fingerprint can be a family member. A handprint can be a jellyfish or ice cream!",zh:"指印可以變成家人。手印可以變成水母或冰淇淋！"},
+{text:"A footprint can be a bird. What can you make?",zh:"腳印可以變成一隻鳥。你能做出什麼呢？"}
+],quiz:[
+{q:"What do you need for Stamp Art?",opts:["scissors and glue","ink pads and paper","paint and brushes"],ans:1},
+{q:"What can a fingerprint look like?",opts:["a family member","a tree","a house"],ans:0},
+{q:"What is the first step?",opts:["Press on the paper","Draw and write","Dip in the ink pad"],ans:2}
+]},
+sentences:[
+{zh:"她是誰？",before:"Who's ",after:"?",blank:"she",opts:["she","he","they","it"]},
+{zh:"她是我的媽媽。",before:"She's my ",after:".",blank:"mother",opts:["mother","sister","teacher","grandma"]},
+{zh:"他是誰？",before:"Who's ",after:"?",blank:"he",opts:["he","she","it","they"]},
+{zh:"他是我的爸爸。",before:"He's my ",after:".",blank:"father",opts:["father","brother","grandpa","teacher"]},
+{zh:"我不知道。",before:"I don't ",after:".",blank:"know",opts:["know","think","want","have"]},
+{zh:"很高興認識你。",before:"Nice to meet ",after:".",blank:"you",opts:["you","her","him","them"]}
+],
+phonics:{rule:"短母音 -op / -ot",
+short:{pattern:"-op",key:"/ɒp/",example:"hop",color:"#f87171",words:["hop","mop","top","pop"]},
+magic:{pattern:"-ot",key:"/ɒt/",example:"dot",color:"#4ade80",words:["dot","hot","pot","cot"]},
+quiz:[{word:"hop",type:"short"},{word:"dot",type:"magic"},{word:"mop",type:"short"},{word:"hot",type:"magic"},{word:"pot",type:"magic"},{word:"top",type:"short"}]},
+vocab:{words:["grandfather","grandmother","father","mother","brother","sister","tall","short","Who's he","Who's she","Nice to meet you","I don't know","Goodbye everyone"],
+zhMap:{"grandfather":"祖父/爺爺","grandmother":"祖母/奶奶","father":"父親/爸爸","mother":"母親/媽媽","brother":"兄弟","sister":"姊妹","tall":"高的","short":"矮的","Who's he":"他是誰","Who's she":"她是誰","Nice to meet you":"很高興認識你","I don't know":"我不知道","Goodbye everyone":"大家再見"}}},
+
+{id:'g3u_u4',num:4,title:"Is He a Teacher?",titleZh:"他是老師嗎？",
+story:{frames:[
+{speaker:"Edison",text:"Goodbye.",zh:"再見。"},
+{speaker:"Mia",text:"See you.",zh:"再見。"},
+{speaker:"Mia",text:"Who's he?",zh:"他是誰？"},
+{speaker:"Edison",text:"He's my grandpa.",zh:"他是我的爺爺。"},
+{speaker:"Mia",text:"Guess! What am I?",zh:"猜猜！我是什麼？"},
+{speaker:"Amber",text:"Can you sing?",zh:"你會唱歌嗎？"},
+{speaker:"Mia",text:"No, I can't.",zh:"不，我不會。"},
+{speaker:"Amber",text:"What can you do?",zh:"你能做什麼？"},
+{speaker:"Mia",text:"I can swim.",zh:"我會游泳。"},
+{speaker:"Amber",text:"I know. You're a fish.",zh:"我知道了。你是一條魚。"},
+{speaker:"Edison",text:"Is he a nurse?",zh:"他是護士嗎？"},
+{speaker:"Rocky",text:"No, he's not. Try again.",zh:"不，他不是。再試一次。"},
+{speaker:"Mia",text:"Is he a doctor?",zh:"他是醫生嗎？"},
+{speaker:"Rocky",text:"Yes, he is.",zh:"是的，他是。"},
+{speaker:"Amber",text:"Are you a teacher?",zh:"你是老師嗎？"},
+{speaker:"Rocky",text:"No, I'm not.",zh:"不，我不是。"},
+{speaker:"Amber",text:"Are you a cook?",zh:"你是廚師嗎？"},
+{speaker:"Rocky",text:"Yes, I am.",zh:"是的，我是。"}
+],quiz:[
+{q:"Is the shadow a nurse?",opts:["Yes, he is.","No, he's not.","I don't know."],ans:1},
+{q:"What is Rocky?",opts:["a teacher","a nurse","a cook"],ans:2},
+{q:"Who is Edison's grandpa?",opts:["the doctor","the man outside","the cook"],ans:1}
+]},
+discover:{title:"More Jobs 職業萬花筒",frames:[
+{text:"There are many jobs in the world!",zh:"世界上有很多種職業！"},
+{text:"An organic farmer grows vegetables and fruits without chemicals.",zh:"有機農夫種植不使用化學品的蔬菜和水果。"},
+{text:"An AI engineer designs and builds robots and smart computers.",zh:"人工智慧工程師設計和製作機器人與智慧電腦。"},
+{text:"A firefighter puts out fires and saves people.",zh:"消防員負責滅火和拯救人們。"},
+{text:"A YouTuber makes videos and shares them on YouTube.",zh:"YouTuber 製作影片並在 YouTube 上分享。"},
+{text:"What do you want to be? Share your dream job!",zh:"你想成為什麼？分享你的夢想職業！"}
+],quiz:[
+{q:"What does an organic farmer do?",opts:["builds robots","grows vegetables","puts out fires"],ans:1},
+{q:"What does a firefighter do?",opts:["makes videos","designs computers","puts out fires and saves people"],ans:2},
+{q:"A YouTuber ___.",opts:["grows food","makes videos","teaches students"],ans:1}
+]},
+sentences:[
+{zh:"你是學生嗎？",before:"Are you a ",after:"?",blank:"student",opts:["student","teacher","doctor","nurse"]},
+{zh:"是的，我是。",before:"Yes, I ",after:".",blank:"am",opts:["am","is","are","be"]},
+{zh:"不，我不是。",before:"No, I'm ",after:".",blank:"not",opts:["not","yes","am","is"]},
+{zh:"他是老師嗎？",before:"Is he a ",after:"?",blank:"teacher",opts:["teacher","cook","driver","nurse"]},
+{zh:"是的，他是。",before:"Yes, he ",after:".",blank:"is",opts:["is","am","are","be"]},
+{zh:"再見。",before:"See ",after:".",blank:"you",opts:["you","me","her","him"]}
+],
+phonics:{rule:"短母音 -ub / -ut",
+short:{pattern:"-ub",key:"/ʌb/",example:"cub",color:"#f87171",words:["cub","sub","tub","pub"]},
+magic:{pattern:"-ut",key:"/ʌt/",example:"cut",color:"#4ade80",words:["cut","hut","nut","but"]},
+quiz:[{word:"cub",type:"short"},{word:"cut",type:"magic"},{word:"sub",type:"short"},{word:"hut",type:"magic"},{word:"nut",type:"magic"},{word:"tub",type:"short"}]},
+vocab:{words:["student","teacher","doctor","nurse","cook","driver","Are you a...","Is he a...","Is she a...","Yes, I am","No, I'm not","Yes, he is","No, he's not","Goodbye","See you","Guess"],
+zhMap:{"student":"學生","teacher":"老師","doctor":"醫生","nurse":"護士","cook":"廚師","driver":"司機","Are you a...":"你是…嗎","Is he a...":"他是…嗎","Is she a...":"她是…嗎","Yes, I am":"是的，我是","No, I'm not":"不，我不是","Yes, he is":"是的，他是","No, he's not":"不，他不是","Goodbye":"再見","See you":"再見","Guess":"猜猜"}}}
+]}},grade4:{下:{units:[
+{id:'g4d_u1',num:1,title:"What Time Is It?",titleZh:"幾點了？",
+story:{frames:[
+{speaker:"Mia",text:"It's ten o'clock. Let's take this bus.",zh:"現在十點了。我們搭這班公車吧。"},
+{speaker:"Abu",text:"Hurry up!",zh:"快點！"},
+{speaker:"Edison",text:"Sorry, I'm late.",zh:"抱歉，我遲到了。"},
+{speaker:"Abu",text:"Look! That's Big Ben.",zh:"看！那是大笨鐘。"},
+{speaker:"Mia",text:"It's ten thirty.",zh:"現在十點三十分。"},
+{speaker:"Mia",text:"Wow! Amazing! Let's go.",zh:"哇！太令人驚嘆了！走吧。"},
+{speaker:"Rocky",text:"OK.",zh:"好的。"},
+{speaker:"Rocky",text:"Here we go!",zh:"出發了！"},
+{speaker:"(旁白)",text:"180 years ago...",zh:"180年前…"},
+{speaker:"Abu",text:"What time is it?",zh:"現在幾點了？"},
+{speaker:"人群",text:"Shh.... It's eleven forty.",zh:"噓……現在十一點四十分。"},
+{speaker:"Abu",text:"Mia, I'm so hungry. What time is it?",zh:"Mia，我好餓。現在幾點了？"},
+{speaker:"Mia",text:"Not now, Abu!",zh:"現在不行，Abu！"},
+{speaker:"侍者",text:"It's eleven fifty. Time for lunch.",zh:"現在十一點五十分。午餐時間到了。"},
+{speaker:"侍者",text:"Do you want some fish?",zh:"你想要一些魚嗎？"},
+{speaker:"Edison",text:"Yes, please.",zh:"好的，謝謝。"},
+{speaker:"(旁白)",text:"Poof!",zh:"（砰！）"},
+{speaker:"Rocky",text:"Oh, no! We're back.",zh:"哦，不！我們回來了。"},
+{speaker:"Abu",text:"Now we're really hungry!",zh:"現在我們真的很餓了！"}
+],quiz:[
+{q:"What time is it at the bus stop?",opts:["It's ten o'clock.","It's ten thirty.","It's nine o'clock."],ans:0},
+{q:"What time is it when they travel back 180 years?",opts:["eleven forty","eleven fifty","ten thirty"],ans:0},
+{q:"What does Edison want to eat?",opts:["bananas","fish","ice cream"],ans:1}
+]},
+discover:{title:"Different Clocks 各式各樣的時鐘",frames:[
+{text:"There are different clocks around the world.",zh:"世界各地有各式各樣的時鐘。"},
+{text:"The UK has Big Ben.",zh:"英國有大笨鐘。"},
+{text:"The UAE has a flower clock.",zh:"阿拉伯聯合大公國有花鐘。"},
+{text:"Germany has a cuckoo clock.",zh:"德國有咕咕鐘。"},
+{text:"Switzerland has a railway clock.",zh:"瑞士有國鐵時鐘。"},
+{text:"Japan has Cosmo Clock 21.",zh:"日本有宇宙時鐘21。"},
+{text:"What time is it? It's eleven oh five.",zh:"現在幾點？現在十一點零五分。"},
+{text:"Look! It's ten thirty.",zh:"看！現在十點三十分。"}
+],quiz:[
+{q:"Which country has Big Ben?",opts:["the UAE","the UK","Germany"],ans:1},
+{q:"Germany has a ___ clock.",opts:["flower","cuckoo","railway"],ans:1},
+{q:"Japan has ___.",opts:["Big Ben","a flower clock","Cosmo Clock 21"],ans:2}
+]},
+sentences:[
+{zh:"現在幾點了？",before:"",after:" time is it?",blank:"What",opts:["What","Where","How","Who"]},
+{zh:"現在四點整。",before:"It's four ",after:".",blank:"o'clock",opts:["o'clock","thirty","fifteen","forty"]},
+{zh:"現在七點三十分。",before:"It's seven ",after:".",blank:"thirty",opts:["o'clock","thirty","forty-five","twenty"]},
+{zh:"現在十二點五十五分。",before:"It's twelve ",after:".",blank:"fifty-five",opts:["thirty","o'clock","fifty-five","forty"]},
+{zh:"快點！",before:"",after:" up!",blank:"Hurry",opts:["Hurry","Wake","Stand","Get"]},
+{zh:"抱歉，我遲到了。",before:"Sorry, I'm ",after:".",blank:"late",opts:["hungry","late","tired","happy"]}
+],
+phonics:{rule:"短母音 -e- vs 魔法E -e_e-",
+short:{pattern:"-e-",key:"/ɛ/",example:"pet",color:"#f87171",words:["pet","web","met","den"]},
+magic:{pattern:"-e_e",key:"/iː/",example:"Pete",color:"#4ade80",words:["Pete","Eve","these","Chinese"]},
+quiz:[{word:"pet",type:"short"},{word:"Pete",type:"magic"},{word:"web",type:"short"},{word:"Eve",type:"magic"},{word:"these",type:"magic"},{word:"met",type:"short"}]},
+vocab:{words:["bus stop","telephone","taxi","twenty","twenty-five","thirty","thirty-five","forty","forty-five","fifty","fifty-five","o'clock","amazing","hurry","late","Big Ben","back","really"],
+zhMap:{"bus stop":"公車站","telephone":"電話","taxi":"計程車","twenty":"二十","twenty-five":"二十五","thirty":"三十","thirty-five":"三十五","forty":"四十","forty-five":"四十五","fifty":"五十","fifty-five":"五十五","o'clock":"點整","amazing":"令人驚嘆的","hurry":"趕快","late":"遲到","Big Ben":"大笨鐘","back":"回來","really":"真的"}}},
+
+{id:'g4d_u2',num:2,title:"What Are You Doing?",titleZh:"你在做什麼？",
+story:{frames:[
+{speaker:"司機",text:"What time is it?",zh:"現在幾點了？"},
+{speaker:"Mia",text:"It's nine thirty.",zh:"現在九點三十分。"},
+{speaker:"Amber",text:"Hey, what are you doing?",zh:"嘿，你在做什麼？"},
+{speaker:"Abu",text:"I'm drinking coconut water.",zh:"我在喝椰子水。"},
+{speaker:"Amber",text:"How about you?",zh:"你呢？"},
+{speaker:"Rocky",text:"We're eating ice cream.",zh:"我們在吃冰淇淋。"},
+{speaker:"Mia",text:"Oh! It's ten o'clock!",zh:"哦！現在十點了！"},
+{speaker:"Edison",text:"See you later.",zh:"再見！"},
+{speaker:"導覽員",text:"Welcome! This is Emma.",zh:"歡迎！這是愛瑪。"},
+{speaker:"Edison",text:"What's she doing now?",zh:"她現在在做什麼？"},
+{speaker:"導覽員",text:"She's sleeping.",zh:"她在睡覺。"},
+{speaker:"Abu",text:"Time for lunch, Emma.",zh:"午餐時間到了，愛瑪。"},
+{speaker:"Rocky",text:"What are they doing?",zh:"他們在做什麼？"},
+{speaker:"Mia",text:"They're eating bananas.",zh:"他們在吃香蕉。"},
+{speaker:"Rocky",text:"What's Rocky doing?",zh:"洛基在做什麼？"},
+{speaker:"Amber",text:"He's ... swimming.",zh:"他在…游泳。"},
+{speaker:"Abu",text:"Hey, wait a minute. It's your turn.",zh:"嘿，等一下。輪到你了。"},
+{speaker:"Rocky",text:"Let's have some fun.",zh:"我們來玩吧！"}
+],quiz:[
+{q:"What is Abu doing on the tuk-tuk?",opts:["eating","drinking coconut water","sleeping"],ans:1},
+{q:"What is Emma (the elephant) doing?",opts:["eating","swimming","sleeping"],ans:2},
+{q:"What are the elephants doing?",opts:["drinking water","eating bananas","swimming"],ans:1}
+]},
+discover:{title:"The Coconut Tree 椰子樹的寶藏",frames:[
+{text:"The coconut tree is Thailand's treasure.",zh:"椰子樹是泰國的寶藏。"},
+{text:"The coconut tree has a leaf.",zh:"椰子樹有葉子。"},
+{text:"The coconut tree has a shell.",zh:"椰子樹有果殼。"},
+{text:"The coconut tree has a trunk.",zh:"椰子樹有樹幹。"},
+{text:"The coconut tree has a fruit.",zh:"椰子樹有果實。"},
+{text:"I'm eating coconut ice cream.",zh:"我在吃椰子冰淇淋。"},
+{text:"I'm drinking coconut water.",zh:"我在喝椰子水。"},
+{text:"Is she tired? Yes, she is. She's sleeping in the coconut hammock.",zh:"她累了嗎？是的，她在椰子吊床上睡覺。"}
+],quiz:[
+{q:"What part of the coconut can you drink?",opts:["the leaf","the shell","the fruit (coconut water)"],ans:2},
+{q:"What is the girl doing in the hammock?",opts:["reading","sleeping","eating"],ans:1},
+{q:"The coconut tree is Thailand's ___.",opts:["flower","treasure","clock"],ans:1}
+]},
+sentences:[
+{zh:"你在做什麼？",before:"What are you ",after:"?",blank:"doing",opts:["doing","eating","going","seeing"]},
+{zh:"我在寫字。",before:"I'm ",after:".",blank:"writing",opts:["writing","reading","swimming","sleeping"]},
+{zh:"她在游泳。",before:"",after:" swimming.",blank:"She's",opts:["She's","He's","I'm","They're"]},
+{zh:"他在閱讀。",before:"",after:" reading.",blank:"He's",opts:["He's","She's","I'm","They're"]},
+{zh:"他們在吃香蕉。",before:"",after:" eating bananas.",blank:"They're",opts:["They're","She's","He's","I'm"]},
+{zh:"等一下。",before:"Wait a ",after:".",blank:"minute",opts:["minute","second","moment","time"]}
+],
+phonics:{rule:"短母音 -i- vs 魔法E -i_e-",
+short:{pattern:"-i-",key:"/ɪ/",example:"kit",color:"#f87171",words:["kit","Tim","rip","fin"]},
+magic:{pattern:"-i_e",key:"/aɪ/",example:"kite",color:"#4ade80",words:["kite","time","bike","ride"]},
+quiz:[{word:"kit",type:"short"},{word:"kite",type:"magic"},{word:"Tim",type:"short"},{word:"time",type:"magic"},{word:"bike",type:"magic"},{word:"rip",type:"short"}]},
+vocab:{words:["drinking","eating","reading","sleeping","writing","running","swimming","coconut","elephant","welcome","ice cream","banana","wait a minute","time for lunch","fun","see you later","how about you","floating market"],
+zhMap:{"drinking":"喝","eating":"吃","reading":"閱讀","sleeping":"睡覺","writing":"寫字","running":"跑步","swimming":"游泳","coconut":"椰子","elephant":"大象","welcome":"歡迎","ice cream":"冰淡淠","banana":"香蕉","wait a minute":"等一下","time for lunch":"午餐時間到","fun":"樂趣","see you later":"再見","how about you":"你呢","floating market":"水上市場"}}},
+
+{id:'g4d_u3',num:3,title:"Where Are You?",titleZh:"你在哪裡？",
+story:{frames:[
+{speaker:"媽媽",text:"Baby, where are you?",zh:"寶貝，你在哪裡？"},
+{speaker:"小紅帽",text:"I'm in the living room. I'm reading.",zh:"我在客廳。我在閱讀。"},
+{speaker:"媽媽",text:"This is for Grandma.",zh:"這是要給奶奶的。"},
+{speaker:"小紅帽",text:"OK. Wow! It looks yummy!",zh:"好的。哇！看起來好好吃！"},
+{speaker:"小紅帽",text:"Wait a minute! Hmm.... Turn right? Turn left?",zh:"等一下！嗯⋯⋯右轉？左轉？"},
+{speaker:"仙子",text:"Turn left.",zh:"左轉。"},
+{speaker:"大野狼",text:"No, turn right.",zh:"不，右轉。"},
+{speaker:"大野狼",text:"Hehehe.... Time for lunch!",zh:"呵呵呵⋯⋯午餐時間到了！"},
+{speaker:"小紅帽",text:"Grandma? May I come in? Where are you?",zh:"奶奶？我可以進來嗎？你在哪裡？"},
+{speaker:"大野狼",text:"I'm in the bedroom.",zh:"我在臥室。"},
+{speaker:"Rocky",text:"Who are you? Where's Grandma?",zh:"你是誰？奶奶在哪裡？"},
+{speaker:"大野狼",text:"She's in the bedroom.",zh:"她在臥室。"},
+{speaker:"小紅帽",text:"Grandma, where are you?",zh:"奶奶，你在哪裡？"},
+{speaker:"Rocky",text:"Look at Rocky.",zh:"看洛基。"}
+],quiz:[
+{q:"Where is the baby (Little Red Riding Hood) at the start?",opts:["in the bedroom","in the living room","in the kitchen"],ans:1},
+{q:"Where is Grandma?",opts:["in the kitchen","in the yard","in the bedroom"],ans:2},
+{q:"Which direction is correct for Little Red Riding Hood?",opts:["turn left","turn right","go straight"],ans:1}
+]},
+discover:{title:"Types of Books 書的種類",frames:[
+{text:"There are two types of books: Fiction and Non-Fiction.",zh:"書有兩種類型：虛構和非虛構。"},
+{text:"Fiction is not real.",zh:"虛構故事不是真實的。"},
+{text:"Non-Fiction is real.",zh:"非虛構故事是真實的。"},
+{text:"The elephant is reading in the yard. Is it Fiction or Non-Fiction?",zh:"大象在院子裡閱讀。這是虛構還是非虛構？"},
+{text:"Apples are red, green, and yellow. Is it Fiction or Non-Fiction?",zh:"蘋果是紅色、綠色和黃色的。這是虛構還是非虛構？"},
+{text:"The life cycle of a turtle. Is it Fiction or Non-Fiction?",zh:"海龜的生命週期。這是虛構還是非虛構？"},
+{text:"Dog Man is a hero. Is it Fiction or Non-Fiction?",zh:"狗人是英雄。這是虛構還是非虛構？"}
+],quiz:[
+{q:"A story about a flying elephant is ___.",opts:["Fiction","Non-Fiction"],ans:0},
+{q:"A book about how apples grow is ___.",opts:["Fiction","Non-Fiction"],ans:1},
+{q:"Dog Man is a hero. This is ___.",opts:["Fiction","Non-Fiction"],ans:0}
+]},
+sentences:[
+{zh:"你在哪裡，Bob？",before:"Where are you, ",after:"?",blank:"Bob",opts:["Bob","Mia","Rocky","Abu"]},
+{zh:"我在臥室。",before:"I'm in the ",after:".",blank:"bedroom",opts:["bedroom","kitchen","living room","bathroom"]},
+{zh:"你的奶奶在哪裡？",before:"",after:" your grandma?",blank:"Where's",opts:["Where's","What's","Who's","How's"]},
+{zh:"她在廚房。",before:"She's in the ",after:".",blank:"kitchen",opts:["kitchen","bedroom","bathroom","yard"]},
+{zh:"Teddy在飯廳。",before:"He's in the dining ",after:".",blank:"room",opts:["room","house","place","area"]},
+{zh:"右轉。",before:"Turn ",after:".",blank:"right",opts:["right","left","around","back"]}
+],
+phonics:{rule:"短母音 -o- vs 魔法E -o_e-",
+short:{pattern:"-o-",key:"/ɒ/",example:"hop",color:"#f87171",words:["hop","not","rob","cod"]},
+magic:{pattern:"-o_e",key:"/oʊ/",example:"hope",color:"#4ade80",words:["hope","nose","note","rose"]},
+quiz:[{word:"hop",type:"short"},{word:"hope",type:"magic"},{word:"not",type:"short"},{word:"nose",type:"magic"},{word:"note",type:"magic"},{word:"rob",type:"short"}]},
+vocab:{words:["bathroom","bedroom","dining room","living room","kitchen","yard","turn right","turn left","fiction","non-fiction","real","hero","yummy","baby","grandma","life cycle","May I come in?","Once upon a time"],
+zhMap:{"bathroom":"浴室","bedroom":"臥室","dining room":"飯廳","living room":"客廳","kitchen":"廣房","yard":"院子","turn right":"右轉","turn left":"左轉","fiction":"虛構","non-fiction":"非虛構","real":"真實的","hero":"英雄","yummy":"好吃的","baby":"寶貝","grandma":"奶奶","life cycle":"生命週期","May I come in?":"我可以進來吗","Once upon a time":"很久很久以前"}}},
+
+{id:'g4d_u4',num:4,title:"Where's My Hat?",titleZh:"我的帽子在哪裡？",
+story:{frames:[
+{speaker:"Rocky",text:"Look! A hat dance!",zh:"看！帽子舞！"},
+{speaker:"Abu",text:"Wow, awesome!",zh:"哇，太棒了！"},
+{speaker:"Mia",text:"Let's go.",zh:"走吧。"},
+{speaker:"男子",text:"Hola, little girl.",zh:"哈囉，小女孩。"},
+{speaker:"Amber",text:"Hola, can I dance, too?",zh:"哈囉，我也可以跳舞嗎？"},
+{speaker:"男子",text:"Of course.",zh:"當然可以。"},
+{speaker:"Mia",text:"Hmm.... Where's Edison?",zh:"嗯⋯⋯愛迪生在哪裡？"},
+{speaker:"Rocky",text:"Look! He's over there.",zh:"看！他在那邊。"},
+{speaker:"Amber",text:"Come on, Edison. Let's dance.",zh:"來吧，愛迪生。我們跳舞吧。"},
+{speaker:"Edison",text:"Hey, where's my hat?",zh:"嘿，我的帽子在哪裡？"},
+{speaker:"Rocky",text:"It's by my bag.",zh:"它在我的袋子旁邊。"},
+{speaker:"Abu",text:"Teddy, where's your bag?",zh:"Teddy，你的袋子在哪裡？"},
+{speaker:"Teddy",text:"It's on the table.",zh:"它在桌子上。"},
+{speaker:"Abu",text:"Watch out!",zh:"小心！"},
+{speaker:"Rocky",text:"Don't worry.",zh:"別擔心。"}
+],quiz:[
+{q:"Where is Edison's hat?",opts:["on the table","in the box","by the bag"],ans:2},
+{q:"Where is Teddy's bag?",opts:["on the table","under the chair","in the box"],ans:0},
+{q:"Where are they in the story?",opts:["Thailand","Germany","Mexico"],ans:2}
+]},
+discover:{title:"Computer Fun 玩轉電腦趣",frames:[
+{text:"There are two types of computers.",zh:"電腦有兩種類型。"},
+{text:"A desktop is a big computer.",zh:"桌上型電腦是大型電腦。"},
+{text:"A laptop is a small computer.",zh:"筆記型電腦是小型電腦。"},
+{text:"A computer has a screen.",zh:"電腦有螢幕。"},
+{text:"A computer has a keyboard.",zh:"電腦有鍵盤。"},
+{text:"A computer has a mouse.",zh:"電腦有滑鼠。"},
+{text:"Where's the mouse? It's under the chair.",zh:"滑鼠在哪裡？它在椅子下面。"},
+{text:"A screen shows pictures and words.",zh:"螢幕顯示圖片和文字。"}
+],quiz:[
+{q:"Where is the mouse in the story?",opts:["on the desk","on the table","under the chair"],ans:2},
+{q:"A laptop is ___.",opts:["a big computer","a small computer","a screen"],ans:1},
+{q:"What does a screen show?",opts:["letters and numbers","pictures and words","the time"],ans:1}
+]},
+sentences:[
+{zh:"我的筆在哪裡？",before:"Where's my ",after:"?",blank:"pen",opts:["pen","bag","ball","book"]},
+{zh:"它在箱子裡。",before:"It's ",after:" the box.",blank:"in",opts:["in","on","under","by"]},
+{zh:"它在桌子上。",before:"It's ",after:" the desk.",blank:"on",opts:["on","in","under","by"]},
+{zh:"它在桌子下面。",before:"It's ",after:" the table.",blank:"under",opts:["under","on","in","by"]},
+{zh:"它在箱子旁邊。",before:"It's ",after:" the box.",blank:"by",opts:["by","in","on","under"]},
+{zh:"別擔心。",before:"",after:" worry.",blank:"Don't",opts:["Don't","Do","Doesn't","Won't"]}
+],
+phonics:{rule:"短母音 -u- vs 魔法E -u_e-",
+short:{pattern:"-u-",key:"/ʌ/",example:"cut",color:"#f87171",words:["cut","cub","tub","fun"]},
+magic:{pattern:"-u_e",key:"/juː/",example:"cute",color:"#4ade80",words:["cute","cube","mute","fuse"]},
+quiz:[{word:"cut",type:"short"},{word:"cute",type:"magic"},{word:"cub",type:"short"},{word:"cube",type:"magic"},{word:"mute",type:"magic"},{word:"tub",type:"short"}]},
+vocab:{words:["bag","box","chair","computer","desk","table","pen","pencil","ball","book","screen","keyboard","mouse","desktop","laptop","awesome","of course","What happened?","Don't worry","hat dance"],
+zhMap:{"bag":"袋子","box":"筱子","chair":"椅子","computer":"電腦","desk":"書桌","table":"桌子","pen":"筆","pencil":"鶉筆","ball":"球","book":"書","screen":"螢幕","keyboard":"鍵盤","mouse":"滑鼠","desktop":"桌上型電腦","laptop":"筆記型電腦","awesome":"太棒了","of course":"當然","What happened?":"發生了什麼事","Don\'t worry":"別擔心","hat dance":"帽子舞"}}}]}}};
+
+// STATE
+let state={grade:null,semester:null,unit:null,mode:null,screen:'home',score:0,currentQ:0,ttsSpeed:0.8,isSpeaking:false,isPaused:false,storyFrame:0,storyFrames:[],storyQuiz:[],storyScore:0,storyDone:false,phonicsScore:0,vocabWords:[],vocabScore:0,vocabZhMap:{},_spellInput:[],_spellWord:''};
+let storyTimer=null;
+
+// TTS
+function speak(text,rate,onEnd){window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=rate||state.ttsSpeed;if(onEnd)u.onend=onEnd;window.speechSynthesis.speak(u);}
+function speakWord(word){window.speechSynthesis.cancel();setTimeout(()=>{const u=new SpeechSynthesisUtterance(word);u.lang='en-US';u.rate=0.8;window.speechSynthesis.speak(u);},80);}
+
+// NAVIGATION
+function showScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  document.getElementById('backBtn').style.display=name==='home'?'none':'flex';
+  document.getElementById('historyBtn').style.display=['home','semester','units','modes'].includes(name)?'block':'none';
+  state.screen=name;window.scrollTo(0,0);
+}
+function _navTo(name){
+  const h=document.getElementById('headerTitle');
+  if(name==='home'){h.textContent='小學英語通';}
+  else if(name==='semester'){h.textContent=state.grade+'年級';}
+  else if(name==='units'){h.textContent=state.grade+'年級'+state.semester+'學期';renderUnits();}
+  else if(name==='modes'){
+    h.textContent='Unit '+state.unit.num;
+    document.getElementById('modeBadge').textContent='LEVEL '+state.grade+' · Unit '+state.unit.num;
+    document.getElementById('modeTitle').textContent=state.unit.title;
+    renderModes();
+  }
+  showScreen(name);
+}
+function goBack(){
+  window.speechSynthesis.cancel();if(storyTimer)clearTimeout(storyTimer);
+  if(state.screen==='activity'||state.screen==='result'){_navTo('modes');return;}
+  if(state.screen==='modes'){_navTo('units');return;}
+  if(state.screen==='units'){_navTo('semester');return;}
+  _navTo('home');
+}
+function goToModes(){window.speechSynthesis.cancel();if(storyTimer)clearTimeout(storyTimer);_navTo('modes');}
+function retryActivity(){window.speechSynthesis.cancel();if(storyTimer)clearTimeout(storyTimer);startMode(state.mode);}
+
+// GRADE/SEMESTER/UNIT
+function selectGrade(g){
+  state.grade=g;
+  document.getElementById('semPageChip').textContent='Grade '+g+' English';
+  document.getElementById('semLabel').textContent=g+'年級 — 選擇學期';
+  document.getElementById('headerTitle').textContent=g+'年級';
+  const gradeData=COURSE_DATA['grade'+g]||{};
+  const history=getHistory();
+  ['上','下'].forEach(sem=>{
+    const card=document.getElementById('semCard'+sem);
+    const badge=document.getElementById('semBadge'+sem);
+    const sub=document.getElementById('semSub'+sem);
+    const fill=document.getElementById('semFill'+sem);
+    const pct=document.getElementById('semPct'+sem);
+    if(gradeData[sem]){
+      card.classList.remove('coming-soon');
+      const units=gradeData[sem].units;
+      const modes=['story','discover','sentences','phonics','vocab'];
+      const totalModes=units.length*modes.length;
+      const doneModes=units.reduce((acc,u)=>acc+modes.filter(m=>history.some(h=>h.unitId===u.id&&h.mode===m)).length,0);
+      const pctVal=totalModes>0?Math.round(doneModes/totalModes*100):0;
+      fill.style.width=pctVal+'%';
+      pct.textContent=pctVal+'%';
+      if(pctVal>=100){badge.textContent='✓ 完成';badge.className='sem-badge done';}
+      else if(doneModes>0){badge.textContent='進行中';badge.className='sem-badge ongoing';}
+      else{badge.textContent=units.length+'個Unit';badge.className='sem-badge ongoing';}
+      sub.textContent=pctVal>=100?'Great job! You\'ve finished this part.':(doneModes>0?(units.length-Math.floor(doneModes/modes.length))+' Units remaining':'點擊開始學習');
+    } else {
+      card.classList.add('coming-soon');
+      badge.textContent='即將推出';badge.className='sem-badge locked';
+      sub.textContent='即將推出';fill.style.width='0%';pct.textContent='0%';
+    }
+  });
+  showScreen('semester');
+}
+function selectSemesterIfAvailable(sem){
+  const gradeData=COURSE_DATA['grade'+state.grade]||{};
+  if(gradeData[sem]){selectSemester(sem);}else{showComingSoon();}
+}
+function selectSemester(sem){state.semester=sem;document.getElementById('headerTitle').textContent=state.grade+'年級'+sem+'學期';renderUnits();showScreen('units');}
+function renderUnits(){
+  const data=COURSE_DATA['grade'+state.grade][state.semester];
+  const history=getHistory();
+  const modes=['story','discover','sentences','phonics','vocab'];
+  const totalModes=data.units.length*modes.length;
+  const doneModes=data.units.reduce((acc,u)=>acc+modes.filter(m=>history.some(h=>h.unitId===u.id&&h.mode===m)).length,0);
+  const pctVal=totalModes>0?Math.round(doneModes/totalModes*100):0;
+  document.getElementById('unitsPct').textContent=pctVal+'%';
+  document.getElementById('unitsPctFill').style.width=pctVal+'%';
+  document.getElementById('unitList').innerHTML=data.units.map(u=>{
+    const done=modes.filter(m=>history.some(h=>h.unitId===u.id&&h.mode===m)).length;
+    const numStr=String(u.num).padStart(2,'0');
+    return`<div class="unit-card" onclick="selectUnit('${u.id}')">
+      <div class="unit-num">${numStr}</div>
+      <div class="unit-info">
+        <div class="unit-title">${u.title}</div>
+        <div class="unit-subtitle">${u.titleZh}</div>
+        <div class="unit-progress">${[0,1,2,3,4].map(i=>`<div class="unit-dot ${i<done?'done':''}"></div>`).join('')}</div>
+      </div>
+      <div class="unit-arrow">›</div>
+    </div>`;
+  }).join('');
+}
+function selectUnit(id){
+  const data=COURSE_DATA['grade'+state.grade][state.semester];
+  state.unit=data.units.find(u=>u.id===id);
+  document.getElementById('headerTitle').textContent='Unit '+state.unit.num;
+  document.getElementById('modeBadge').textContent='LEVEL '+state.grade+' · Unit '+state.unit.num;
+  document.getElementById('modeTitle').textContent=state.unit.title;
+  renderModes();showScreen('modes');
+}
+function renderModes(){
+  const u=state.unit,history=getHistory();
+  const modes=['story','discover','sentences','phonics','vocab'];
+  const doneModes=modes.filter(m=>history.some(h=>h.unitId===u.id&&h.mode===m)).length;
+  const pctVal=Math.round(doneModes/modes.length*100);
+  document.getElementById('modeProgFill').style.width=pctVal+'%';
+  document.getElementById('modeProgPct').textContent=pctVal+'% Done';
+  const scoreChip=m=>{
+    const h=history.filter(x=>x.unitId===u.id&&x.mode===m);
+    const isDone=h.length>0;
+    const scoreStr=isDone?h[h.length-1].score+'/'+h[h.length-1].total:'';
+    if(isDone)return`<span class="mode-score-chip">${scoreStr}</span><span class="mode-check">✓</span>`;
+    return'';
+  };
+  const modeCards=[
+    {key:'story',icon:'📖',cls:'story',title:'Story Time',desc:'Listen and read along'},
+    {key:'discover',icon:'🧭',cls:'discover',title:'Discover',desc:'New vocabulary world'},
+    {key:'sentences',icon:'💬',cls:'sentence',title:'Sentence Practice（句型練習）',desc:'Ask and answer questions'},
+    {key:'phonics',icon:'🎵',cls:'phonics',title:'Phonics',desc:'Sound out the letters'},
+    {key:'vocab',icon:'🔤',cls:'vocab',title:'Word Practice（單字練習）',desc:'Build your vocabulary'},
+  ];
+  document.getElementById('modeGrid').innerHTML=modeCards.map(mc=>`
+    <div class="mode-card" onclick="startMode('${mc.key}')">
+      <div class="mode-icon ${mc.cls}">${mc.icon}</div>
+      <div class="mode-info">
+        <div class="mode-title">${mc.title}</div>
+        <div class="mode-desc">${mc.desc}</div>
+      </div>
+      ${scoreChip(mc.key)}
+    </div>`).join('');
+}
+function modeLabel(m){return{story:'📖 Story Time',discover:'🔍 Discover',sentences:'💬 句型練習',phonics:'🔤 Phonics',vocab:'📝 單字練習'}[m]||m;}
+
+// START MODE
+function startMode(mode){
+  window.speechSynthesis.cancel();if(storyTimer)clearTimeout(storyTimer);
+  state.mode=mode;state.score=0;state.currentQ=0;state.isSpeaking=false;
+  state.isPaused=false;state.storyFrame=0;  // 每次進入新模式從第一句開始
+  state.storyDone=false;state.storyScore=0;state.phonicsScore=0;state.vocabScore=0;
+  document.getElementById('headerTitle').textContent=modeLabel(mode);
+  showScreen('activity');
+  if(mode==='story')renderStory(state.unit.story,'story');
+  else if(mode==='discover')renderStory(state.unit.discover,'discover');
+  else if(mode==='sentences')renderSentence();
+  else if(mode==='phonics')renderPhonics();
+  else if(mode==='vocab')renderVocab();
+}
+
+// STORY/DISCOVER
+function renderStory(data,type){
+  state.storyFrames=data.frames;state.storyQuiz=data.quiz||[];state.storyScore=0;state.storyDone=false;
+  const isDiscover=type==='discover';
+  const framesHtml=data.frames.map((f,i)=>`
+    <div class="story-frame" id="frame-${i}">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="frame-num">${i+1} / ${data.frames.length}</div>
+        <button class="frame-speak-btn" onclick="frameSpeakOne(${i})">🔊 聽這句</button>
+      </div>
+      ${f.speaker?`<div class="frame-speaker">${f.speaker}</div>`:''}
+      <div class="frame-text">${f.text}</div>
+      <div class="frame-zh">${f.zh}</div>
+    </div>`).join('');
+  const titleHtml=isDiscover?`<div style="font-size:16px;font-weight:700;margin-bottom:12px;color:var(--tertiary)">🔍 ${data.title}</div>`:'';
+  document.getElementById('activityContent').innerHTML=`
+    <div class="speed-control">
+      <span class="speed-label">⚡ 朗讀速度</span>
+      <button class="speed-btn ${state.ttsSpeed===0.6?'active':''}" onclick="setSpeed(0.6,this)">慢</button>
+      <button class="speed-btn ${state.ttsSpeed===0.8?'active':''}" onclick="setSpeed(0.8,this)">普通</button>
+      <button class="speed-btn ${state.ttsSpeed===1.0?'active':''}" onclick="setSpeed(1.0,this)">快</button>
+    </div>
+    ${titleHtml}
+    <div class="story-container" id="storyFrames">${framesHtml}</div>
+    <div id="quizArea"></div>
+    <div class="playback-controls">
+      <button class="play-btn" id="playBtn" onclick="togglePlay()">▶ 開始朗讀</button>
+    </div>`;
+}
+function setSpeed(s,btn){state.ttsSpeed=s;document.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+function frameSpeakOne(i){
+  // 暫停主播放（不重置進度），只播這一句
+  window.speechSynthesis.cancel();if(storyTimer)clearTimeout(storyTimer);
+  const wasPlaying=state.isSpeaking;
+  state.isSpeaking=false;
+  if(wasPlaying){
+    state.isPaused=true;
+    const btn=document.getElementById('playBtn');
+    if(btn){btn.textContent='▶ 繼續朗讀';btn.style.background='var(--yellow)';btn.style.color='#000';}
+  }
+  // highlight this frame
+  document.querySelectorAll('.story-frame').forEach(f=>f.classList.remove('active-frame'));
+  const el=document.getElementById('frame-'+i);if(el)el.classList.add('active-frame');
+  const frames=state.storyFrames;
+  if(frames[i])speak(frames[i].text,state.ttsSpeed);
+  // 記住下次繼續播的位置從這句之後
+  state.storyFrame=i;
+}
+function togglePlay(){
+  if(state.isSpeaking){
+    // 暫停
+    window.speechSynthesis.cancel();if(storyTimer)clearTimeout(storyTimer);
+    state.isSpeaking=false;state.isPaused=true;
+    const btn=document.getElementById('playBtn');
+    if(btn){btn.textContent='▶ 繼續朗讀';btn.style.background='var(--yellow)';btn.style.color='#000';}
+  } else {
+    // 播放 / 繼續
+    state.isSpeaking=true;state.isPaused=false;
+    const btn=document.getElementById('playBtn');
+    if(btn){btn.textContent='⏸ 暫停';btn.style.background='';btn.style.color='';}
+    playFrame(state.storyFrame);
+  }
+}
+function playFrame(i){
+  if(!state.isSpeaking)return;  // 已暫停
+  state.storyFrame=i;
+  const frames=state.storyFrames;
+  document.querySelectorAll('.story-frame').forEach(f=>f.classList.remove('active-frame'));
+  if(i>=frames.length){
+    state.isSpeaking=false;state.isPaused=false;state.storyFrame=0;
+    const btn=document.getElementById('playBtn');
+    if(btn){btn.textContent='▶ 再聽一次';btn.style.background='';btn.style.color='';}
+    if(!state.storyDone&&state.storyQuiz.length>0)setTimeout(()=>renderStoryQuiz(0),600);
+    return;
+  }
+  const el=document.getElementById('frame-'+i);
+  if(el){el.classList.add('active-frame');el.scrollIntoView({behavior:'smooth',block:'center'});}
+  speak(frames[i].text,state.ttsSpeed,()=>{storyTimer=setTimeout(()=>playFrame(i+1),400);});
+}
+function stopStory(){
+  window.speechSynthesis.cancel();if(storyTimer)clearTimeout(storyTimer);
+  state.isSpeaking=false;state.isPaused=false;
+}
+function renderStoryQuiz(qi){
+  const quiz=state.storyQuiz;
+  if(qi>=quiz.length){saveHistory(state.mode,state.storyScore,quiz.length);showResult(state.storyScore,quiz.length);return;}
+  state.storyDone=true;
+  const q=quiz[qi];
+  const area=document.getElementById('quizArea');
+  area.innerHTML=`
+    <div class="quiz-section">
+      <h3>🎯 理解問答 ${qi+1}/${quiz.length}</h3>
+      <div class="quiz-q">${q.q}</div>
+      <div class="quiz-options">${q.opts.map((o,i)=>`<button class="quiz-opt" id="qo${i}" onclick="answerStoryQuiz(${i},${qi},${q.ans})">${o}</button>`).join('')}</div>
+      <div class="quiz-nav">
+        <span class="quiz-counter">得分：${state.storyScore}/${qi}</span>
+        <button class="next-btn" id="nextQBtn" onclick="renderStoryQuiz(${qi+1})">下一題 →</button>
+      </div>
+    </div>`;
+  area.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function answerStoryQuiz(chosen,qi,correct){
+  for(let i=0;i<state.storyQuiz[qi].opts.length;i++){
+    const b=document.getElementById('qo'+i);if(!b)continue;
+    if(i===correct)b.classList.add('correct');else if(i===chosen)b.classList.add('wrong');
+    b.disabled=true;
+  }
+  if(chosen===correct){state.storyScore++;showToast('✅ 正確！');}else showToast('❌ 再想想！');
+  const nb=document.getElementById('nextQBtn');if(nb)nb.style.display='block';
+}
+
+// SENTENCE
+function renderSentence(){
+  const sentences=state.unit.sentences;
+  const i=state.currentQ;
+  if(i>=sentences.length){saveHistory('sentences',state.score,sentences.length);showResult(state.score,sentences.length);return;}
+  const s=sentences[i];
+  const display=s.before+'<span class="blank-slot" id="blankSlot">___</span>'+s.after;
+  document.getElementById('activityContent').innerHTML=`
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${(i/sentences.length)*100}%"></div></div>
+    <div style="text-align:right;font-size:13px;color:var(--on-surface-var);margin-bottom:12px">${i+1} / ${sentences.length}</div>
+    <div class="sentence-card">
+      <div class="sentence-zh">🈶 ${s.zh}</div>
+      <div class="sentence-display">${display}</div>
+    </div>
+    <div class="choices-grid">${s.opts.map(o=>`<button class="choice-btn" onclick="answerSentence(this,'${o.replace(/'/g,"\\'")}','${s.blank.replace(/'/g,"\\'")}')">${o}</button>`).join('')}</div>
+    <div id="sentSpeakArea" style="text-align:center"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+      <span style="font-size:14px;color:var(--on-surface-var)">得分：${state.score}/${i}</span>
+      <button class="next-btn" id="sentNextBtn" onclick="nextSentence()">下一題 →</button>
+    </div>`;
+}
+function answerSentence(clickedBtn,chosen,correct){
+  document.querySelectorAll('.choice-btn').forEach(b=>{
+    if(b.textContent===correct)b.classList.add('correct');
+    else if(b===clickedBtn)b.classList.add('wrong');
+    b.disabled=true;
+  });
+  const slot=document.getElementById('blankSlot');
+  if(slot){slot.textContent=chosen;slot.style.borderColor=chosen===correct?'var(--green)':'var(--red)';slot.style.color=chosen===correct?'var(--green)':'var(--red)';}
+  if(chosen===correct){
+    state.score++;showToast('✅ 正確！');
+    // 答對：顯示朗讀完整句子的按鈕
+    const s=state.unit.sentences[state.currentQ];
+    const fullSentence=(s.before+chosen+s.after).replace(/^\s+/,'');
+    const sa=document.getElementById('sentSpeakArea');
+    if(sa){state._lastSentence=fullSentence;sa.innerHTML='<button class="correct-speak-btn" onclick="speak(state._lastSentence,0.8)">🔊 聽完整句子</button>';}
+  } else {
+    showToast('❌ 答案是：'+correct);
+    // 答錯：不顯示喇叭按鈕
+  }
+  const nb=document.getElementById('sentNextBtn');if(nb)nb.style.display='block';
+}
+function nextSentence(){state.currentQ++;renderSentence();}
+
+// PHONICS
+function renderPhonics(){
+  const p=state.unit.phonics;state.phonicsScore=0;
+  document.getElementById('activityContent').innerHTML=`
+    <div class="phonics-rule-card">
+      <div class="phonics-rule-title">🔤 ${p.rule}</div>
+      <div class="phonics-pattern">
+        <div class="pattern-box"><div class="pattern-label">短母音 Short Vowel</div><div class="pattern-key" style="color:${p.short.color}">${p.short.pattern}</div><div class="pattern-example">${p.short.key} · 例：${p.short.example}</div></div>
+        <div class="pattern-box"><div class="pattern-label">魔法E Magic E</div><div class="pattern-key" style="color:${p.magic.color}">${p.magic.pattern}</div><div class="pattern-example">${p.magic.key} · 例：${p.magic.example}</div></div>
+      </div>
+      <div style="font-size:13px;color:var(--on-surface-var);margin-bottom:8px">點擊單字聆聽發音：</div>
+      <div class="phonics-words">
+        ${p.short.words.map(w=>`<button class="phonics-word-btn" onclick="speakWord('${w}')"><span style="color:${p.short.color}">${w}</span><span class="wtype">短母音</span></button>`).join('')}
+        ${p.magic.words.map(w=>`<button class="phonics-word-btn" onclick="speakWord('${w}')"><span style="color:${p.magic.color}">${w}</span><span class="wtype">魔法E</span></button>`).join('')}
+      </div>
+    </div>
+    <div id="phonicsQuiz"></div>`;
+  renderPhonicsQ(0);
+}
+function renderPhonicsQ(qi){
+  const quiz=state.unit.phonics.quiz;
+  if(qi>=quiz.length){saveHistory('phonics',state.phonicsScore,quiz.length);showResult(state.phonicsScore,quiz.length);return;}
+  const q=quiz[qi];
+  document.getElementById('phonicsQuiz').innerHTML=`
+    <div class="phonics-quiz-card">
+      <div style="font-size:14px;color:var(--on-surface-var);margin-bottom:8px">🎯 練習 ${qi+1}/${quiz.length} — 短母音還是魔法E？</div>
+      <div class="phonics-quiz-word" onclick="speakWord('${q.word}')">${q.word} 🔊</div>
+      <div class="phonics-choices">
+        <button class="phonics-choice" id="pc-short" onclick="answerPhonics(this,'short','${q.type}',${qi})">🔴 短母音<br><small>Short Vowel</small></button>
+        <button class="phonics-choice" id="pc-magic" onclick="answerPhonics(this,'magic','${q.type}',${qi})">🟢 魔法E<br><small>Magic E</small></button>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+        <span style="font-size:13px;color:var(--on-surface-var)">得分：${state.phonicsScore}/${qi}</span>
+        <button class="next-btn" id="phonicsNextBtn" onclick="renderPhonicsQ(${qi+1})">下一題 →</button>
+      </div>
+    </div>`;
+  setTimeout(()=>speakWord(q.word),300);
+}
+function answerPhonics(clickedBtn,chosen,correct,qi){
+  const sb=document.getElementById('pc-short'),mb=document.getElementById('pc-magic');
+  if(correct==='short')sb.style.borderColor='var(--green)';else mb.style.borderColor='var(--green)';
+  if(chosen!==correct)clickedBtn.style.borderColor='var(--red)';
+  sb.disabled=true;mb.disabled=true;
+  if(chosen===correct){state.phonicsScore++;showToast('✅ 正確！');}else showToast('❌ 答案是：'+(correct==='short'?'短母音':'魔法E'));
+  const nb=document.getElementById('phonicsNextBtn');if(nb)nb.style.display='block';
+}
+
+// VOCAB
+function renderVocab(){
+  const allData=COURSE_DATA['grade'+state.grade][state.semester];
+  let allWords=[],allZhMap={};
+  allData.units.forEach(u=>{
+    u.vocab.words.forEach(w=>{
+      if(!allZhMap[w]){allWords.push(w);allZhMap[w]=u.vocab.zhMap[w];}
+    });
+  });
+  state.vocabWords=[...allWords].sort(()=>Math.random()-0.5).slice(0,10);
+  state.vocabZhMap=allZhMap;
+  state.vocabScore=0;state.currentQ=0;
+  renderVocabQ(0);
+}
+function renderVocabQ(qi){
+  const words=state.vocabWords;
+  const zhMap=state.vocabZhMap||state.unit.vocab.zhMap;
+  if(qi>=words.length){saveHistory('vocab',state.vocabScore,words.length);showResult(state.vocabScore,words.length);return;}
+  const word=words[qi],correct=zhMap[word];
+  const allVals=Object.values(zhMap);
+  const wrongs=allVals.filter(z=>z!==correct).sort(()=>Math.random()-0.5).slice(0,3);
+  const opts=[...wrongs,correct].sort(()=>Math.random()-0.5);
+  document.getElementById('activityContent').innerHTML=`
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${(qi/words.length)*100}%"></div></div>
+    <div style="text-align:right;font-size:13px;color:var(--on-surface-var);margin-bottom:12px">${qi+1} / ${words.length}</div>
+    <div class="vocab-card">
+      <div class="vocab-word-display">
+        <div class="the-word">?</div>
+        <button class="speak-btn" onclick="speakWord('${word}')">🔊 點擊聆聽</button>
+      </div>
+      <div style="text-align:center;font-size:14px;color:var(--on-surface-var);margin-top:10px">這個單字是什麼意思？</div>
+    </div>
+    <div class="vocab-choices" id="vocabChoices">${opts.map(o=>`<button class="vocab-choice" onclick="answerVocabMeaning(this,'${o}','${correct}',${qi},'${word.replace(/'/g,"\\'")}','${correct.replace(/'/g,"\\'")}')">  ${o}</button>`).join('')}</div>
+    <div id="spellArea"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px">
+      <span style="font-size:14px;color:var(--on-surface-var)">得分：${state.vocabScore}/${qi}</span>
+      <button class="next-btn" id="vocabNextBtn" onclick="renderVocabQ(${qi+1})" style="display:none">下一題 →</button>
+    </div>`;
+  setTimeout(()=>speakWord(word),400);
+}
+
+function answerVocabMeaning(clickedBtn,chosen,correct,qi,word,correctZh){
+  // Phase 1: meaning selection
+  document.querySelectorAll('.vocab-choice').forEach(b=>{
+    if(b.textContent.trim()===correct)b.classList.add('correct');
+    else if(b===clickedBtn)b.classList.add('wrong');
+    b.disabled=true;
+  });
+  // Show the word now
+  const wordDisplay=document.querySelector('.the-word');
+  if(wordDisplay){wordDisplay.textContent=word;wordDisplay.style.color='var(--accent)';}
+  if(chosen===correct){
+    state.vocabScore++;
+    showToast('✅ 正確！現在來拼字吧！');
+    // Phase 2: spelling
+    setTimeout(()=>renderSpellPhase(word,qi),600);
+  } else {
+    showToast('❌ 是「'+correct+'」！看清楚單字再繼續');
+    // Still show spell phase (for learning, but no points)
+    setTimeout(()=>renderSpellPhase(word,qi,true),800);
+  }
+}
+
+function renderSpellPhase(word,qi,isWrong){
+  const spellArea=document.getElementById('spellArea');
+  if(!spellArea)return;
+  if(window._spellKeyHandler){document.removeEventListener('keydown',window._spellKeyHandler);window._spellKeyHandler=null;}
+  state._spellWord=word;
+  state._spellInput=[];
+  spellArea.innerHTML=`
+    <div class="spell-section">
+      <div class="spell-title">⌨️ 用鍵盤拼出單字！${isWrong?'<span style="color:var(--on-surface-var);font-size:12px">（練習用，不加分）</span>':''}</div>
+      <input class="spell-keyboard-input" id="spellKbInput" type="text" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="在這裡拼出單字...">
+      <div class="spell-actions">
+        <button class="spell-clear-btn" onclick="clearSpell()">⌫ 清除</button>
+        <button class="spell-check-btn" onclick="checkSpell()">✓ 確認</button>
+      </div>
+    </div>`;
+  const input=document.getElementById('spellKbInput');
+  if(input){
+    input.addEventListener('keydown',e=>{if(e.key==='Enter')checkSpell();});
+    setTimeout(()=>input.focus(),100);
+  }
+}
+
+function clearSpell(){
+  const input=document.getElementById('spellKbInput');
+  if(input){input.value='';setTimeout(()=>input.focus(),50);}
+  state._spellInput=[];
+}
+
+function checkSpell(){
+  const word=state._spellWord;
+  const input=document.getElementById('spellKbInput');
+  const typed=(input?input.value.trim():'');
+  if(!typed){showToast('請先輸入單字！');return;}
+  const allCorrect=typed.toLowerCase()===word.toLowerCase();
+  if(allCorrect){
+    showToast('🎉 拼對了！');
+    speak(word,0.7);
+    setTimeout(()=>{const nb=document.getElementById('vocabNextBtn');if(nb)nb.style.display='block';},800);
+  } else {
+    showToast('❌ 答案是：'+word+'，再試一次！');
+  }
+}
+
+function answerVocab(clickedBtn,chosen,correct,qi){
+  // legacy fallback
+  document.querySelectorAll('.vocab-choice').forEach(b=>{
+    if(b.textContent===correct)b.classList.add('correct');else if(b===clickedBtn)b.classList.add('wrong');b.disabled=true;
+  });
+  if(chosen===correct){state.vocabScore++;showToast('✅ 正確！');}else showToast('❌ 答案是：'+correct);
+  const nb=document.getElementById('vocabNextBtn');if(nb)nb.style.display='block';
+}
+
+// RESULT
+function showResult(score,total){
+  const pct=total>0?score/total:0;
+  let emoji='😊',label='繼續加油！';
+  if(pct>=0.9){emoji='🎉';label='太棒了！滿分英雄！';}
+  else if(pct>=0.7){emoji='👍';label='不錯喔！';}
+  else if(pct>=0.5){emoji='💪';label='繼續練習！';}
+  document.getElementById('resultEmoji').textContent=emoji;
+  document.getElementById('resultScore').textContent=score+'/'+total;
+  document.getElementById('resultScore').style.color=pct>=0.7?'var(--green)':pct>=0.5?'var(--yellow)':'var(--red)';
+  document.getElementById('resultLabel').textContent=label;
+  document.getElementById('resultDetail').textContent='Unit '+state.unit.num+' · '+modeLabel(state.mode);
+  showScreen('result');
+}
+
+// HISTORY
+function getHistory(){try{return JSON.parse(localStorage.getItem('tbHistory')||'[]');}catch{return[];}}
+function saveHistory(mode,score,total){
+  const h=getHistory();
+  h.push({unitId:state.unit.id,unitTitle:state.grade+'年級'+state.semester+'學期 Unit '+state.unit.num,mode,modeLabel:modeLabel(mode),score,total,date:new Date().toLocaleString('zh-TW',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})});
+  if(h.length>100)h.shift();localStorage.setItem('tbHistory',JSON.stringify(h));
+}
+function showHistory(){
+  const h=getHistory().reverse();
+  document.getElementById('headerTitle').textContent='📊 練習紀錄';
+  document.getElementById('historyList').innerHTML=!h.length
+    ?'<div style="text-align:center;color:var(--on-surface-var);margin-top:40px">還沒有練習紀錄</div>'
+    :h.map(item=>`<div class="history-item"><div class="history-info"><div class="h-unit">${item.unitTitle}</div><div class="h-mode">${item.modeLabel}</div><div class="h-date">${item.date}</div></div><div class="history-score">${item.score}/${item.total}</div></div>`).join('');
+  showScreen('history');
+}
+function clearHistory(){if(confirm('確定要清除所有練習紀錄嗎？')){localStorage.removeItem('tbHistory');showHistory();}}
+
+// UTILS
+function showComingSoon(){showToast('🚧 即將推出！');}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
+
+// SW
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').catch(()=>{});});}
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "小學英語通",
+  "short_name": "英語通",
+  "description": "小學英文課本聽說讀寫練習APP",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f5f6f7",
+  "theme_color": "#005f99",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
