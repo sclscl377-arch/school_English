@@ -818,8 +818,271 @@ quiz:[{word:"cut",type:"short"},{word:"cute",type:"magic"},{word:"cub",type:"sho
 vocab:{words:["bag","box","chair","computer","desk","table","pen","pencil","ball","book","screen","keyboard","mouse","desktop","laptop","awesome","of course","What happened?","Don't worry","hat dance"],
 zhMap:{"bag":"袋子","box":"筱子","chair":"椅子","computer":"電腦","desk":"書桌","table":"桌子","pen":"筆","pencil":"鶉筆","ball":"球","book":"書","screen":"螢幕","keyboard":"鍵盤","mouse":"滑鼠","desktop":"桌上型電腦","laptop":"筆記型電腦","awesome":"太棒了","of course":"當然","What happened?":"發生了什麼事","Don\'t worry":"別擔心","hat dance":"帽子舞"}}}]}}};
 
+// ── QUIZ BANKS ──────────────────────────────────────────────────
+const QUIZ_BANKS={
+g3u_u1:{
+story:[
+{q:"Who says 'Good morning, everyone!'?",opts:["Mia","Rocky","Edison"],ans:0},
+{q:"What does 'Good afternoon' mean?",opts:["午安","早安","晚安"],ans:0},
+{q:"Which word means the same as 'Hello'?",opts:["Hi","Bye","See you"],ans:0},
+{q:"When do you say 'Good evening'?",opts:["in the morning","at night","at noon"],ans:1},
+{q:"What does Abu say when he leaves?",opts:["Hello","Good morning","Goodbye"],ans:2},
+{q:"Which greeting is used at noon?",opts:["Good morning","Good afternoon","Good evening"],ans:1},
+{q:"'Goodbye' means ___.",opts:["再見","你好","謝謝"],ans:0},
+{q:"What does Rocky say at midnight?",opts:["Good morning","Good night","Hello"],ans:1},
+{q:"'Hi' is the same as ___.",opts:["Hello","Goodbye","Sorry"],ans:0},
+{q:"You say 'Good morning' when ___.",opts:["the sun rises","at noon","at night"],ans:0},
+],
+sentences:[
+{zh:"你好！",before:"",after:"!",blank:"Hello",opts:["Hello","Goodbye","Sorry","Thanks"]},
+{zh:"早安！",before:"Good ",after:"!",blank:"morning",opts:["morning","night","afternoon","evening"]},
+{zh:"午安！",before:"Good ",after:"!",blank:"afternoon",opts:["afternoon","morning","evening","night"]},
+{zh:"晚安！",before:"Good ",after:"!",blank:"evening",opts:["evening","morning","afternoon","night"]},
+{zh:"再見！",before:"Good",after:"!",blank:"bye",opts:["bye","morning","night","day"]},
+{zh:"嗨！",before:"",after:"!",blank:"Hi",opts:["Hi","Bye","OK","No"]},
+{zh:"再見！",before:"See ",after:"!",blank:"you",opts:["you","me","us","her"]},
+{zh:"我很好。",before:"I'm ",after:".",blank:"fine",opts:["fine","bad","sick","sad"]},
+{zh:"謝謝你！",before:"Thank ",after:"!",blank:"you",opts:["you","me","him","her"]},
+{zh:"不客氣。",before:"You're ",after:".",blank:"welcome",opts:["welcome","fine","good","nice"]},
+],
+phonics:[
+{word:"cat",type:"short"},{word:"cake",type:"magic"},{word:"bat",type:"short"},{word:"bake",type:"magic"},
+{word:"hat",type:"short"},{word:"hate",type:"magic"},{word:"tap",type:"short"},{word:"tape",type:"magic"},
+{word:"man",type:"short"},{word:"mane",type:"magic"},{word:"pan",type:"short"},{word:"pane",type:"magic"},
+],
+vocab:["hello","goodbye","morning","afternoon","evening","midnight","robot","happy","sorry","thank you"],
+},
+g3u_u2:{
+story:[
+{q:"What sport can Rocky play?",opts:["basketball","soccer","baseball"],ans:0},
+{q:"What can Mia do?",opts:["swim","sing","dance"],ans:0},
+{q:"Who says 'I can't jump'?",opts:["Abu","Edison","Rocky"],ans:0},
+{q:"What does 'Let's go!' mean?",opts:["走吧！","停下！","等等！"],ans:0},
+{q:"Which sport uses a net?",opts:["basketball","badminton","soccer"],ans:1},
+{q:"What can Edison do?",opts:["swim","draw","run"],ans:1},
+{q:"'You can do it!' means ___.",opts:["你做得到！","你不行！","加油！"],ans:0},
+{q:"What does 'Good job!' mean?",opts:["做得好！","幫忙！","走吧！"],ans:0},
+{q:"Who needs help?",opts:["Mia","Edison","Abu"],ans:2},
+{q:"What does 'Help!' mean?",opts:["救命！","你好！","謝謝！"],ans:0},
+],
+sentences:[
+{zh:"我會游泳。",before:"I can ",after:".",blank:"swim",opts:["swim","run","sing","jump"]},
+{zh:"我不會跳舞。",before:"I ",after:" dance.",blank:"can't",opts:["can't","can","am","do"]},
+{zh:"你會畫圖嗎？",before:"Can you ",after:"?",blank:"draw",opts:["draw","swim","run","dance"]},
+{zh:"是的，我會。",before:"Yes, I ",after:".",blank:"can",opts:["can","am","do","will"]},
+{zh:"不，我不會。",before:"No, I ",after:".",blank:"can't",opts:["can't","don't","am not","won't"]},
+{zh:"我會唱歌。",before:"I can ",after:".",blank:"sing",opts:["sing","swim","run","fly"]},
+{zh:"走吧！",before:"Let's ",after:"!",blank:"go",opts:["go","run","play","sing"]},
+{zh:"做得好！",before:"Good ",after:"!",blank:"job",opts:["job","work","try","day"]},
+{zh:"你做得到！",before:"You can do ",after:"!",blank:"it",opts:["it","that","this","well"]},
+{zh:"你能做什麼？",before:"What can ",after:" do?",blank:"you",opts:["you","he","she","they"]},
+],
+phonics:[
+{word:"big",type:"short"},{word:"kick",type:"magic"},{word:"dig",type:"short"},{word:"Nick",type:"magic"},
+{word:"sick",type:"magic"},{word:"pig",type:"short"},{word:"wig",type:"short"},{word:"lick",type:"magic"},
+{word:"fig",type:"short"},{word:"thick",type:"magic"},{word:"jig",type:"short"},{word:"pick",type:"magic"},
+],
+vocab:["dance","draw","jump","read","sing","swim","write","can","can't","help","run","play"],
+},
+g3u_u3:{
+story:[
+{q:"Who is Edison's mother?",opts:["his sister","his grandma","the woman in the drawing"],ans:2},
+{q:"Who is tall?",opts:["Rocky","Abu","Edison"],ans:1},
+{q:"Can Rocky draw?",opts:["Yes, he can.","No, he can't.","I don't know."],ans:0},
+{q:"What does Grandma say when she meets Rocky?",opts:["Nice to meet you.","Good morning.","Goodbye."],ans:0},
+{q:"Who says 'I don't know'?",opts:["Mia","Rocky","Grandma"],ans:0},
+{q:"What can you make with a footprint?",opts:["a jellyfish","a bird","a family member"],ans:1},
+{q:"What material do you need for Stamp Art?",opts:["scissors and glue","ink pads and paper","paint and brushes"],ans:1},
+{q:"What is the first step of Stamp Art?",opts:["Press on the paper","Draw and write","Dip in the ink pad"],ans:2},
+{q:"What can a fingerprint look like?",opts:["a family member","a tree","a house"],ans:0},
+{q:"Abu is ___.",opts:["short","tall","funny"],ans:1},
+],
+sentences:[
+{zh:"她是誰？",before:"Who's ",after:"?",blank:"she",opts:["she","he","they","it"]},
+{zh:"她是我的媽媽。",before:"She's my ",after:".",blank:"mother",opts:["mother","sister","teacher","grandma"]},
+{zh:"他是誰？",before:"Who's ",after:"?",blank:"he",opts:["he","she","it","they"]},
+{zh:"他是我的爸爸。",before:"He's my ",after:".",blank:"father",opts:["father","brother","grandpa","teacher"]},
+{zh:"我不知道。",before:"I don't ",after:".",blank:"know",opts:["know","think","want","have"]},
+{zh:"很高興認識你。",before:"Nice to meet ",after:".",blank:"you",opts:["you","her","him","them"]},
+{zh:"他好高。",before:"He's ",after:".",blank:"tall",opts:["tall","short","happy","funny"]},
+{zh:"她是我的姊姊。",before:"She's my ",after:".",blank:"sister",opts:["sister","mother","grandma","teacher"]},
+{zh:"我也很高興認識你。",before:"Nice to meet you, ",after:".",blank:"too",opts:["too","also","either","yet"]},
+{zh:"大家再見。",before:"Goodbye, ",after:".",blank:"everyone",opts:["everyone","someone","anyone","nobody"]},
+],
+phonics:[
+{word:"hop",type:"short"},{word:"dot",type:"magic"},{word:"mop",type:"short"},{word:"hot",type:"magic"},
+{word:"pot",type:"magic"},{word:"top",type:"short"},{word:"pop",type:"short"},{word:"lot",type:"magic"},
+{word:"cop",type:"short"},{word:"rot",type:"magic"},{word:"cot",type:"magic"},{word:"stop",type:"short"},
+],
+vocab:["grandfather","grandmother","father","mother","brother","sister","tall","short","know","meet"],
+},
+g3u_u4:{
+story:[
+{q:"Is the shadow a nurse?",opts:["Yes, he is.","No, he's not.","I don't know."],ans:1},
+{q:"What is Rocky?",opts:["a teacher","a nurse","a cook"],ans:2},
+{q:"Who is Edison's grandpa?",opts:["the doctor","the man outside","the cook"],ans:1},
+{q:"What does Mia pretend to be?",opts:["a fish","a bird","a cat"],ans:0},
+{q:"What question does Amber ask first?",opts:["Can you sing?","Are you a teacher?","Is he a doctor?"],ans:0},
+{q:"What do organic farmers grow?",opts:["robots","vegetables","videos"],ans:1},
+{q:"What does a firefighter do?",opts:["makes videos","puts out fires","teaches students"],ans:1},
+{q:"A YouTuber ___.",opts:["grows food","makes videos","teaches students"],ans:1},
+{q:"What does 'Guess' mean?",opts:["猜猜","知道","告訴"],ans:0},
+{q:"'Try again' means ___.",opts:["再試一次","放棄","繼續"],ans:0},
+],
+sentences:[
+{zh:"你是學生嗎？",before:"Are you a ",after:"?",blank:"student",opts:["student","teacher","doctor","nurse"]},
+{zh:"是的，我是。",before:"Yes, I ",after:".",blank:"am",opts:["am","is","are","be"]},
+{zh:"不，我不是。",before:"No, I'm ",after:".",blank:"not",opts:["not","yes","am","is"]},
+{zh:"他是老師嗎？",before:"Is he a ",after:"?",blank:"teacher",opts:["teacher","cook","driver","nurse"]},
+{zh:"是的，他是。",before:"Yes, he ",after:".",blank:"is",opts:["is","am","are","be"]},
+{zh:"再見。",before:"See ",after:".",blank:"you",opts:["you","me","her","him"]},
+{zh:"她是護士嗎？",before:"Is she a ",after:"?",blank:"nurse",opts:["nurse","cook","doctor","driver"]},
+{zh:"不，她不是。",before:"No, she's ",after:".",blank:"not",opts:["not","yes","is","am"]},
+{zh:"再試一次。",before:"Try ",after:".",blank:"again",opts:["again","now","later","soon"]},
+{zh:"猜猜！",before:"",after:"!",blank:"Guess",opts:["Guess","Try","Know","Think"]},
+],
+phonics:[
+{word:"cub",type:"short"},{word:"cut",type:"magic"},{word:"sub",type:"short"},{word:"hut",type:"magic"},
+{word:"nut",type:"magic"},{word:"tub",type:"short"},{word:"pub",type:"short"},{word:"but",type:"magic"},
+{word:"rub",type:"short"},{word:"gut",type:"magic"},{word:"hub",type:"short"},{word:"jut",type:"magic"},
+],
+vocab:["student","teacher","doctor","nurse","cook","driver","farmer","firefighter","engineer","singer"],
+},
+g4d_u1:{
+story:[
+{q:"What time is it at the bus stop?",opts:["It's ten o'clock.","It's ten thirty.","It's nine o'clock."],ans:0},
+{q:"What time is it when they travel back 180 years?",opts:["eleven forty","eleven fifty","ten thirty"],ans:0},
+{q:"What does Edison want to eat?",opts:["bananas","fish","ice cream"],ans:1},
+{q:"What is Big Ben?",opts:["a bus","a clock","a restaurant"],ans:1},
+{q:"What does 'Hurry up!' mean?",opts:["快點！","慢慢來","停下"],ans:0},
+{q:"How many years back do they travel?",opts:["100","180","200"],ans:1},
+{q:"Who says 'Sorry, I'm late'?",opts:["Mia","Abu","Edison"],ans:2},
+{q:"Where is Big Ben?",opts:["the UAE","the UK","Germany"],ans:1},
+{q:"Germany has a ___ clock.",opts:["flower","cuckoo","railway"],ans:1},
+{q:"Japan has ___.",opts:["Big Ben","a flower clock","Cosmo Clock 21"],ans:2},
+],
+sentences:[
+{zh:"現在幾點了？",before:"",after:" time is it?",blank:"What",opts:["What","Where","How","Who"]},
+{zh:"現在四點整。",before:"It's four ",after:".",blank:"o'clock",opts:["o'clock","thirty","fifteen","forty"]},
+{zh:"現在七點三十分。",before:"It's seven ",after:".",blank:"thirty",opts:["o'clock","thirty","forty-five","twenty"]},
+{zh:"現在十二點五十五分。",before:"It's twelve ",after:".",blank:"fifty-five",opts:["thirty","o'clock","fifty-five","forty"]},
+{zh:"快點！",before:"",after:" up!",blank:"Hurry",opts:["Hurry","Wake","Stand","Get"]},
+{zh:"抱歉，我遲到了。",before:"Sorry, I'm ",after:".",blank:"late",opts:["hungry","late","tired","happy"]},
+{zh:"現在五點四十分。",before:"It's five ",after:".",blank:"forty",opts:["forty","thirty","fifty","twenty"]},
+{zh:"走吧。",before:"Let's ",after:".",blank:"go",opts:["go","run","stop","wait"]},
+{zh:"現在真的很晚了。",before:"It's really ",after:" now.",blank:"late",opts:["late","early","cold","hot"]},
+{zh:"好的，謝謝。",before:"Yes, ",after:".",blank:"please",opts:["please","thank","go","stop"]},
+],
+phonics:[
+{word:"pet",type:"short"},{word:"Pete",type:"magic"},{word:"web",type:"short"},{word:"Eve",type:"magic"},
+{word:"these",type:"magic"},{word:"met",type:"short"},{word:"bed",type:"short"},{word:"here",type:"magic"},
+{word:"den",type:"short"},{word:"theme",type:"magic"},{word:"red",type:"short"},{word:"eve",type:"magic"},
+],
+vocab:["bus stop","telephone","taxi","twenty","thirty","forty","fifty","o'clock","amazing","hurry","late","back"],
+},
+g4d_u2:{
+story:[
+{q:"What is Abu doing on the tuk-tuk?",opts:["eating","drinking coconut water","sleeping"],ans:1},
+{q:"What is Emma (the elephant) doing?",opts:["eating","swimming","sleeping"],ans:2},
+{q:"What are the elephants doing?",opts:["drinking water","eating bananas","swimming"],ans:1},
+{q:"What time is it at the start?",opts:["nine thirty","ten o'clock","eight fifteen"],ans:0},
+{q:"What is Rocky doing in the water?",opts:["eating","sleeping","swimming"],ans:2},
+{q:"What does 'How about you?' mean?",opts:["你呢？","怎麼了？","你好嗎？"],ans:0},
+{q:"What can you drink from a coconut?",opts:["the leaf","the shell","coconut water"],ans:2},
+{q:"What is the girl doing in the hammock?",opts:["reading","sleeping","eating"],ans:1},
+{q:"The coconut tree is Thailand's ___.",opts:["flower","treasure","clock"],ans:1},
+{q:"What does a coconut tree have?",opts:["only fruit","leaf, shell, trunk, fruit","only leaves"],ans:1},
+],
+sentences:[
+{zh:"你在做什麼？",before:"What are you ",after:"?",blank:"doing",opts:["doing","eating","going","seeing"]},
+{zh:"我在寫字。",before:"I'm ",after:".",blank:"writing",opts:["writing","reading","swimming","sleeping"]},
+{zh:"她在游泳。",before:"",after:" swimming.",blank:"She's",opts:["She's","He's","I'm","They're"]},
+{zh:"他在閱讀。",before:"",after:" reading.",blank:"He's",opts:["He's","She's","I'm","They're"]},
+{zh:"他們在吃香蕉。",before:"",after:" eating bananas.",blank:"They're",opts:["They're","She's","He's","I'm"]},
+{zh:"等一下。",before:"Wait a ",after:".",blank:"minute",opts:["minute","second","moment","time"]},
+{zh:"我在喝椰子水。",before:"I'm drinking coconut ",after:".",blank:"water",opts:["water","milk","juice","tea"]},
+{zh:"她在睡覺。",before:"She's ",after:".",blank:"sleeping",opts:["sleeping","eating","swimming","reading"]},
+{zh:"午餐時間到了。",before:"Time for ",after:".",blank:"lunch",opts:["lunch","dinner","school","bed"]},
+{zh:"我們在吃冰淇淋。",before:"We're eating ice ",after:".",blank:"cream",opts:["cream","cake","pop","bar"]},
+],
+phonics:[
+{word:"kit",type:"short"},{word:"kite",type:"magic"},{word:"Tim",type:"short"},{word:"time",type:"magic"},
+{word:"bike",type:"magic"},{word:"rip",type:"short"},{word:"ride",type:"magic"},{word:"fin",type:"short"},
+{word:"fine",type:"magic"},{word:"bit",type:"short"},{word:"bite",type:"magic"},{word:"pin",type:"short"},
+],
+vocab:["drinking","eating","reading","sleeping","writing","swimming","coconut","elephant","welcome","banana"],
+},
+g4d_u3:{
+story:[
+{q:"Where is Little Red Riding Hood at the start?",opts:["in the bedroom","in the living room","in the kitchen"],ans:1},
+{q:"Where is Grandma?",opts:["in the kitchen","in the yard","in the bedroom"],ans:2},
+{q:"Which direction is correct for Little Red Riding Hood?",opts:["turn left","turn right","go straight"],ans:1},
+{q:"Who says 'Turn right'?",opts:["the fairy","the wolf","Grandma"],ans:1},
+{q:"What does the wolf say?",opts:["I'm in the kitchen","I'm in the bedroom","I'm in the yard"],ans:1},
+{q:"What does Little Red Riding Hood think the food looks like?",opts:["yummy","yucky","spicy"],ans:0},
+{q:"A story about a flying elephant is ___.",opts:["Fiction","Non-Fiction"],ans:0},
+{q:"A book about how apples grow is ___.",opts:["Fiction","Non-Fiction"],ans:1},
+{q:"Dog Man is a hero. This is ___.",opts:["Fiction","Non-Fiction"],ans:0},
+{q:"What are the two types of books?",opts:["short and long","fiction and non-fiction","old and new"],ans:1},
+],
+sentences:[
+{zh:"你在哪裡，Bob？",before:"Where are you, ",after:"?",blank:"Bob",opts:["Bob","Mia","Rocky","Abu"]},
+{zh:"我在臥室。",before:"I'm in the ",after:".",blank:"bedroom",opts:["bedroom","kitchen","living room","bathroom"]},
+{zh:"你的奶奶在哪裡？",before:"",after:" your grandma?",blank:"Where's",opts:["Where's","What's","Who's","How's"]},
+{zh:"她在廚房。",before:"She's in the ",after:".",blank:"kitchen",opts:["kitchen","bedroom","bathroom","yard"]},
+{zh:"Teddy在飯廳。",before:"He's in the dining ",after:".",blank:"room",opts:["room","house","place","area"]},
+{zh:"右轉。",before:"Turn ",after:".",blank:"right",opts:["right","left","around","back"]},
+{zh:"左轉。",before:"Turn ",after:".",blank:"left",opts:["left","right","up","down"]},
+{zh:"我可以進來嗎？",before:"May I come ",after:"?",blank:"in",opts:["in","out","up","down"]},
+{zh:"她在院子裡。",before:"She's in the ",after:".",blank:"yard",opts:["yard","bedroom","kitchen","bathroom"]},
+{zh:"等一下！",before:"Wait a ",after:"!",blank:"minute",opts:["minute","second","moment","time"]},
+],
+phonics:[
+{word:"hop",type:"short"},{word:"hope",type:"magic"},{word:"not",type:"short"},{word:"nose",type:"magic"},
+{word:"note",type:"magic"},{word:"rob",type:"short"},{word:"cod",type:"short"},{word:"rose",type:"magic"},
+{word:"rod",type:"short"},{word:"robe",type:"magic"},{word:"mop",type:"short"},{word:"mole",type:"magic"},
+],
+vocab:["bathroom","bedroom","dining room","living room","kitchen","yard","turn right","turn left","fiction","non-fiction"],
+},
+g4d_u4:{
+story:[
+{q:"Where is Edison's hat?",opts:["on the table","in the box","by the bag"],ans:2},
+{q:"Where is Teddy's bag?",opts:["on the table","under the chair","in the box"],ans:0},
+{q:"Where are they in the story?",opts:["Thailand","Germany","Mexico"],ans:2},
+{q:"What dance do they see?",opts:["a hat dance","a folk dance","a coconut dance"],ans:0},
+{q:"Who starts dancing first?",opts:["Edison","Amber","Rocky"],ans:1},
+{q:"What does 'Don't worry' mean?",opts:["別擔心","小心","快點"],ans:0},
+{q:"What does 'Watch out!' mean?",opts:["小心！","放棄","加油"],ans:0},
+{q:"Where is the mouse (computer) in the story?",opts:["on the desk","on the table","under the chair"],ans:2},
+{q:"A laptop is ___.",opts:["a big computer","a small computer","a screen"],ans:1},
+{q:"What does a screen show?",opts:["letters and numbers","pictures and words","the time"],ans:1},
+],
+sentences:[
+{zh:"我的筆在哪裡？",before:"Where's my ",after:"?",blank:"pen",opts:["pen","bag","ball","book"]},
+{zh:"它在箱子裡。",before:"It's ",after:" the box.",blank:"in",opts:["in","on","under","by"]},
+{zh:"它在桌子上。",before:"It's ",after:" the desk.",blank:"on",opts:["on","in","under","by"]},
+{zh:"它在桌子下面。",before:"It's ",after:" the table.",blank:"under",opts:["under","on","in","by"]},
+{zh:"它在箱子旁邊。",before:"It's ",after:" the box.",blank:"by",opts:["by","in","on","under"]},
+{zh:"別擔心。",before:"",after:" worry.",blank:"Don't",opts:["Don't","Do","Doesn't","Won't"]},
+{zh:"它在椅子下面。",before:"It's under the ",after:".",blank:"chair",opts:["chair","table","desk","box"]},
+{zh:"當然可以。",before:"Of ",after:".",blank:"course",opts:["course","way","sure","yes"]},
+{zh:"他在那邊。",before:"He's over ",after:".",blank:"there",opts:["there","here","home","away"]},
+{zh:"發生了什麼事？",before:"What ",after:"?",blank:"happened",opts:["happened","went","came","said"]},
+],
+phonics:[
+{word:"cut",type:"short"},{word:"cute",type:"magic"},{word:"cub",type:"short"},{word:"cube",type:"magic"},
+{word:"mute",type:"magic"},{word:"tub",type:"short"},{word:"fuse",type:"magic"},{word:"fun",type:"short"},
+{word:"tube",type:"magic"},{word:"bun",type:"short"},{word:"mule",type:"magic"},{word:"pun",type:"short"},
+],
+vocab:["bag","box","chair","computer","desk","table","pen","screen","keyboard","mouse","desktop","laptop"],
+},
+};
+function pickRandom(arr,n){return[...arr].sort(()=>Math.random()-0.5).slice(0,Math.min(n,arr.length));}
+function getBankQ(type,n){const uid=state.unit.id;const b=QUIZ_BANKS[uid];return(b&&b[type]&&b[type].length>=n)?pickRandom(b[type],n):null;}
+// END QUIZ BANKS ─────────────────────────────────────────────────
+
 // STATE
-let state={grade:null,semester:null,unit:null,mode:null,screen:'home',score:0,currentQ:0,ttsSpeed:0.8,isSpeaking:false,isPaused:false,storyFrame:0,storyFrames:[],storyQuiz:[],storyScore:0,storyDone:false,phonicsScore:0,vocabWords:[],vocabScore:0,vocabZhMap:{},_spellInput:[],_spellWord:''};
+let state={grade:null,semester:null,unit:null,mode:null,screen:'home',score:0,currentQ:0,ttsSpeed:0.8,isSpeaking:false,isPaused:false,storyFrame:0,storyFrames:[],storyQuiz:[],storyScore:0,storyDone:false,phonicsScore:0,vocabWords:[],vocabScore:0,vocabZhMap:{},_spellInput:[],_spellWord:'',syllableScore:0,syllableQuestions:[],syllableTotal:0};
 let storyTimer=null;
 
 // TTS
@@ -874,7 +1137,7 @@ function selectGrade(g){
     if(gradeData[sem]){
       card.classList.remove('coming-soon');
       const units=gradeData[sem].units;
-      const modes=['story','discover','sentences','phonics','vocab'];
+      const modes=['story','syllable','sentences','phonics','vocab'];
       const totalModes=units.length*modes.length;
       const doneModes=units.reduce((acc,u)=>acc+modes.filter(m=>history.some(h=>h.unitId===u.id&&h.mode===m)).length,0);
       const pctVal=totalModes>0?Math.round(doneModes/totalModes*100):0;
@@ -900,7 +1163,7 @@ function selectSemester(sem){state.semester=sem;document.getElementById('headerT
 function renderUnits(){
   const data=COURSE_DATA['grade'+state.grade][state.semester];
   const history=getHistory();
-  const modes=['story','discover','sentences','phonics','vocab'];
+  const modes=['story','syllable','sentences','phonics','vocab'];
   const totalModes=data.units.length*modes.length;
   const doneModes=data.units.reduce((acc,u)=>acc+modes.filter(m=>history.some(h=>h.unitId===u.id&&h.mode===m)).length,0);
   const pctVal=totalModes>0?Math.round(doneModes/totalModes*100):0;
@@ -930,7 +1193,7 @@ function selectUnit(id){
 }
 function renderModes(){
   const u=state.unit,history=getHistory();
-  const modes=['story','discover','sentences','phonics','vocab'];
+  const modes=['story','syllable','sentences','phonics','vocab'];
   const doneModes=modes.filter(m=>history.some(h=>h.unitId===u.id&&h.mode===m)).length;
   const pctVal=Math.round(doneModes/modes.length*100);
   document.getElementById('modeProgFill').style.width=pctVal+'%';
@@ -944,7 +1207,7 @@ function renderModes(){
   };
   const modeCards=[
     {key:'story',icon:'📖',cls:'story',title:'Story Time',desc:'Listen and read along'},
-    {key:'discover',icon:'🧭',cls:'discover',title:'Discover',desc:'New vocabulary world'},
+    {key:'syllable',icon:'🔡',cls:'discover',title:'音節練習 Syllable',desc:'分音節・拼單字'},
     {key:'sentences',icon:'💬',cls:'sentence',title:'Sentence Practice（句型練習）',desc:'Ask and answer questions'},
     {key:'phonics',icon:'🎵',cls:'phonics',title:'Phonics',desc:'Sound out the letters'},
     {key:'vocab',icon:'🔤',cls:'vocab',title:'Word Practice（單字練習）',desc:'Build your vocabulary'},
@@ -959,26 +1222,43 @@ function renderModes(){
       ${scoreChip(mc.key)}
     </div>`).join('');
 }
-function modeLabel(m){return{story:'📖 Story Time',discover:'🔍 Discover',sentences:'💬 句型練習',phonics:'🔤 Phonics',vocab:'📝 單字練習'}[m]||m;}
+function modeLabel(m){return{story:'📖 Story Time',syllable:'🔡 音節練習',sentences:'💬 句型練習',phonics:'🎵 Phonics',vocab:'📝 單字練習'}[m]||m;}
 
 // START MODE
 function startMode(mode){
   window.speechSynthesis.cancel();if(storyTimer)clearTimeout(storyTimer);
   state.mode=mode;state.score=0;state.currentQ=0;state.isSpeaking=false;
-  state.isPaused=false;state.storyFrame=0;  // 每次進入新模式從第一句開始
-  state.storyDone=false;state.storyScore=0;state.phonicsScore=0;state.vocabScore=0;
+  state.isPaused=false;state.storyFrame=0;
+  state.storyDone=false;state.storyScore=0;state.phonicsScore=0;state.vocabScore=0;state.syllableScore=0;
   document.getElementById('headerTitle').textContent=modeLabel(mode);
   showScreen('activity');
-  if(mode==='story')renderStory(state.unit.story,'story');
-  else if(mode==='discover')renderStory(state.unit.discover,'discover');
+  const TOTAL_Q={story:5,sentences:5,phonics:5,vocab:5,syllable:10};
+  const n=TOTAL_Q[mode];if(n)setTimeout(()=>showToast('📝 隨機抽取 '+n+' 題，加油！'),400);
+  if(mode==='story')renderStoryMode();
+  else if(mode==='syllable')renderSyllable();
   else if(mode==='sentences')renderSentence();
   else if(mode==='phonics')renderPhonics();
   else if(mode==='vocab')renderVocab();
 }
 
-// STORY/DISCOVER
+// STORY
+function renderStoryMode(){
+  const data=state.unit.story;
+  // 從題庫抽5題，fallback用原始3題
+  const bankQ=getBankQ('story',5);
+  state.storyFrames=data.frames;
+  state.storyQuiz=bankQ||data.quiz||[];
+  state.storyScore=0;state.storyDone=false;
+  renderStory(data,'story');
+}
+
 function renderStory(data,type){
-  state.storyFrames=data.frames;state.storyQuiz=data.quiz||[];state.storyScore=0;state.storyDone=false;
+  // storyFrames/storyQuiz/storyScore already set by renderStoryMode; skip re-init if called from there
+  if(type==='story'&&state.storyFrames&&state.storyFrames.length>0){
+    // already initialised by renderStoryMode — just render frames
+  } else {
+    state.storyFrames=data.frames;state.storyQuiz=data.quiz||[];state.storyScore=0;state.storyDone=false;
+  }
   const isDiscover=type==='discover';
   const framesHtml=data.frames.map((f,i)=>`
     <div class="story-frame" id="frame-${i}">
@@ -1089,7 +1369,13 @@ function answerStoryQuiz(chosen,qi,correct){
 
 // SENTENCE
 function renderSentence(){
-  const sentences=state.unit.sentences;
+  // 初始化時從題庫抽5題
+  if(state.currentQ===0){
+    const bankQ=getBankQ('sentences',5);
+    state._sentencePool=bankQ||state.unit.sentences;
+    state.score=0;
+  }
+  const sentences=state._sentencePool;
   const i=state.currentQ;
   if(i>=sentences.length){saveHistory('sentences',state.score,sentences.length);showResult(state.score,sentences.length);return;}
   const s=sentences[i];
@@ -1119,7 +1405,7 @@ function answerSentence(clickedBtn,chosen,correct){
   if(chosen===correct){
     state.score++;showToast('✅ 正確！');
     // 答對：顯示朗讀完整句子的按鈕
-    const s=state.unit.sentences[state.currentQ];
+    const s=state._sentencePool[state.currentQ];
     const fullSentence=(s.before+chosen+s.after).replace(/^\s+/,'');
     const sa=document.getElementById('sentSpeakArea');
     if(sa){state._lastSentence=fullSentence;sa.innerHTML='<button class="correct-speak-btn" onclick="speak(state._lastSentence,0.8)">🔊 聽完整句子</button>';}
@@ -1134,6 +1420,9 @@ function nextSentence(){state.currentQ++;renderSentence();}
 // PHONICS
 function renderPhonics(){
   const p=state.unit.phonics;state.phonicsScore=0;
+  // 從題庫抽5題
+  const bankQ=getBankQ('phonics',5);
+  state._phonicsPool=bankQ||p.quiz;
   document.getElementById('activityContent').innerHTML=`
     <div class="phonics-rule-card">
       <div class="phonics-rule-title">🔤 ${p.rule}</div>
@@ -1151,7 +1440,7 @@ function renderPhonics(){
   renderPhonicsQ(0);
 }
 function renderPhonicsQ(qi){
-  const quiz=state.unit.phonics.quiz;
+  const quiz=state._phonicsPool||state.unit.phonics.quiz;
   if(qi>=quiz.length){saveHistory('phonics',state.phonicsScore,quiz.length);showResult(state.phonicsScore,quiz.length);return;}
   const q=quiz[qi];
   document.getElementById('phonicsQuiz').innerHTML=`
@@ -1180,15 +1469,26 @@ function answerPhonics(clickedBtn,chosen,correct,qi){
 
 // VOCAB
 function renderVocab(){
-  const allData=COURSE_DATA['grade'+state.grade][state.semester];
-  let allWords=[],allZhMap={};
-  allData.units.forEach(u=>{
-    u.vocab.words.forEach(w=>{
-      if(!allZhMap[w]){allWords.push(w);allZhMap[w]=u.vocab.zhMap[w];}
+  const u=state.unit;
+  // 從題庫或當前unit詞彙抽5個
+  const bankVocab=getBankQ('vocab',5);
+  let words,zhMap;
+  if(bankVocab){
+    // bank vocab是字串陣列
+    words=bankVocab;
+    zhMap=u.vocab.zhMap;
+  } else {
+    // fallback: 從全學期收集再抽
+    const allData=COURSE_DATA['grade'+state.grade][state.semester];
+    let allWords=[],allZhMap={};
+    allData.units.forEach(uu=>{
+      uu.vocab.words.forEach(w=>{if(!allZhMap[w]){allWords.push(w);allZhMap[w]=uu.vocab.zhMap[w];}});
     });
-  });
-  state.vocabWords=[...allWords].sort(()=>Math.random()-0.5).slice(0,10);
-  state.vocabZhMap=allZhMap;
+    words=pickRandom(allWords,5);
+    zhMap=allZhMap;
+  }
+  state.vocabWords=words;
+  state.vocabZhMap=zhMap;
   state.vocabScore=0;state.currentQ=0;
   renderVocabQ(0);
 }
@@ -1292,6 +1592,269 @@ function answerVocab(clickedBtn,chosen,correct,qi){
   if(chosen===correct){state.vocabScore++;showToast('✅ 正確！');}else showToast('❌ 答案是：'+correct);
   const nb=document.getElementById('vocabNextBtn');if(nb)nb.style.display='block';
 }
+
+// ── SYLLABLE TEST ──────────────────────────────────────────────
+// 音節資料庫（每個 unit 對應的詞彙音節）
+const SYLLABLE_DB = {
+  // Grade 3 上
+  g3u_u1:[
+    {word:"hello",syl:["hel","lo"],count:2},
+    {word:"goodbye",syl:["good","bye"],count:2},
+    {word:"morning",syl:["mor","ning"],count:2},
+    {word:"afternoon",syl:["af","ter","noon"],count:3},
+    {word:"evening",syl:["eve","ning"],count:2},
+    {word:"midnight",syl:["mid","night"],count:2},
+    {word:"robot",syl:["ro","bot"],count:2},
+    {word:"happy",syl:["hap","py"],count:2},
+    {word:"pretty",syl:["pret","ty"],count:2},
+    {word:"sunny",syl:["sun","ny"],count:2},
+    {word:"apple",syl:["ap","ple"],count:2},
+    {word:"table",syl:["ta","ble"],count:2},
+    {word:"open",syl:["o","pen"],count:2},
+    {word:"under",syl:["un","der"],count:2},
+    {word:"pencil",syl:["pen","cil"],count:2},
+  ],
+  g3u_u2:[
+    {word:"basketball",syl:["bas","ket","ball"],count:3},
+    {word:"baseball",syl:["base","ball"],count:2},
+    {word:"soccer",syl:["soc","cer"],count:2},
+    {word:"badminton",syl:["bad","min","ton"],count:3},
+    {word:"tennis",syl:["ten","nis"],count:2},
+    {word:"swimming",syl:["swim","ming"],count:2},
+    {word:"running",syl:["run","ning"],count:2},
+    {word:"reading",syl:["read","ing"],count:2},
+    {word:"dancing",syl:["danc","ing"],count:2},
+    {word:"singing",syl:["sing","ing"],count:2},
+    {word:"jumping",syl:["jump","ing"],count:2},
+    {word:"writing",syl:["writ","ing"],count:2},
+    {word:"drawing",syl:["draw","ing"],count:2},
+    {word:"playing",syl:["play","ing"],count:2},
+    {word:"helping",syl:["help","ing"],count:2},
+  ],
+  g3u_u3:[
+    {word:"mother",syl:["moth","er"],count:2},
+    {word:"father",syl:["fa","ther"],count:2},
+    {word:"sister",syl:["sis","ter"],count:2},
+    {word:"brother",syl:["broth","er"],count:2},
+    {word:"grandma",syl:["grand","ma"],count:2},
+    {word:"grandpa",syl:["grand","pa"],count:2},
+    {word:"teacher",syl:["teach","er"],count:2},
+    {word:"finger",syl:["fin","ger"],count:2},
+    {word:"family",syl:["fam","i","ly"],count:3},
+    {word:"jelly",syl:["jel","ly"],count:2},
+    {word:"paper",syl:["pa","per"],count:2},
+    {word:"pencil",syl:["pen","cil"],count:2},
+    {word:"marker",syl:["mar","ker"],count:2},
+    {word:"handprint",syl:["hand","print"],count:2},
+    {word:"footprint",syl:["foot","print"],count:2},
+  ],
+  g3u_u4:[
+    {word:"student",syl:["stu","dent"],count:2},
+    {word:"teacher",syl:["teach","er"],count:2},
+    {word:"doctor",syl:["doc","tor"],count:2},
+    {word:"farmer",syl:["farm","er"],count:2},
+    {word:"driver",syl:["driv","er"],count:2},
+    {word:"firefighter",syl:["fire","fight","er"],count:3},
+    {word:"engineer",syl:["en","gi","neer"],count:3},
+    {word:"singer",syl:["sing","er"],count:2},
+    {word:"swimmer",syl:["swim","mer"],count:2},
+    {word:"robot",syl:["ro","bot"],count:2},
+    {word:"human",syl:["hu","man"],count:2},
+    {word:"children",syl:["chil","dren"],count:2},
+    {word:"person",syl:["per","son"],count:2},
+    {word:"video",syl:["vid","e","o"],count:3},
+    {word:"organic",syl:["or","gan","ic"],count:3},
+  ],
+  // Grade 4 下
+  g4d_u1:[
+    {word:"amazing",syl:["a","maz","ing"],count:3},
+    {word:"telephone",syl:["tel","e","phone"],count:3},
+    {word:"really",syl:["real","ly"],count:2},
+    {word:"hungry",syl:["hun","gry"],count:2},
+    {word:"history",syl:["his","to","ry"],count:3},
+    {word:"thirty",syl:["thir","ty"],count:2},
+    {word:"forty",syl:["for","ty"],count:2},
+    {word:"fifty",syl:["fif","ty"],count:2},
+    {word:"twenty",syl:["twen","ty"],count:2},
+    {word:"o'clock",syl:["o","clock"],count:2},
+    {word:"railway",syl:["rail","way"],count:2},
+    {word:"flower",syl:["flow","er"],count:2},
+    {word:"cuckoo",syl:["cuck","oo"],count:2},
+    {word:"station",syl:["sta","tion"],count:2},
+    {word:"traveler",syl:["trav","el","er"],count:3},
+  ],
+  g4d_u2:[
+    {word:"coconut",syl:["co","co","nut"],count:3},
+    {word:"elephant",syl:["el","e","phant"],count:3},
+    {word:"welcome",syl:["wel","come"],count:2},
+    {word:"drinking",syl:["drink","ing"],count:2},
+    {word:"sleeping",syl:["sleep","ing"],count:2},
+    {word:"swimming",syl:["swim","ming"],count:2},
+    {word:"reading",syl:["read","ing"],count:2},
+    {word:"writing",syl:["writ","ing"],count:2},
+    {word:"running",syl:["run","ning"],count:2},
+    {word:"floating",syl:["float","ing"],count:2},
+    {word:"market",syl:["mar","ket"],count:2},
+    {word:"hammock",syl:["ham","mock"],count:2},
+    {word:"banana",syl:["ba","na","na"],count:3},
+    {word:"treasure",syl:["treas","ure"],count:2},
+    {word:"tired",syl:["tired"],count:1},
+  ],
+  g4d_u3:[
+    {word:"bedroom",syl:["bed","room"],count:2},
+    {word:"bathroom",syl:["bath","room"],count:2},
+    {word:"kitchen",syl:["kitch","en"],count:2},
+    {word:"living room",syl:["liv","ing","room"],count:3},
+    {word:"fiction",syl:["fic","tion"],count:2},
+    {word:"nonfiction",syl:["non","fic","tion"],count:3},
+    {word:"grandma",syl:["grand","ma"],count:2},
+    {word:"riding",syl:["rid","ing"],count:2},
+    {word:"reading",syl:["read","ing"],count:2},
+    {word:"turning",syl:["turn","ing"],count:2},
+    {word:"cycle",syl:["cy","cle"],count:2},
+    {word:"turtle",syl:["tur","tle"],count:2},
+    {word:"yellow",syl:["yel","low"],count:2},
+    {word:"hero",syl:["he","ro"],count:2},
+    {word:"apple",syl:["ap","ple"],count:2},
+  ],
+  g4d_u4:[
+    {word:"computer",syl:["com","put","er"],count:3},
+    {word:"keyboard",syl:["key","board"],count:2},
+    {word:"laptop",syl:["lap","top"],count:2},
+    {word:"desktop",syl:["desk","top"],count:2},
+    {word:"pencil",syl:["pen","cil"],count:2},
+    {word:"awesome",syl:["awe","some"],count:2},
+    {word:"table",syl:["ta","ble"],count:2},
+    {word:"under",syl:["un","der"],count:2},
+    {word:"happen",syl:["hap","pen"],count:2},
+    {word:"Mexico",syl:["Mex","i","co"],count:3},
+    {word:"Germany",syl:["Ger","ma","ny"],count:3},
+    {word:"sombrero",syl:["som","bre","ro"],count:3},
+    {word:"over",syl:["o","ver"],count:2},
+    {word:"worry",syl:["wor","ry"],count:2},
+    {word:"button",syl:["but","ton"],count:2},
+  ],
+};
+
+function getSyllableData(){
+  const uid=state.unit.id;
+  const db=SYLLABLE_DB[uid];
+  if(db&&db.length>=5)return db;
+  // fallback: 從 vocab 詞彙自動產生音節資料（估計）
+  const vocab=state.unit.vocab.words;
+  return vocab.slice(0,10).map(w=>{
+    const parts=w.replace(/[^a-zA-Z '-]/g,'').toLowerCase().match(/[^aeiou]*[aeiou]+(?:[^aeiou]*$|[^aeiou](?=[^aeiou]))?/g)||[w];
+    return{word:w,syl:parts.length>1?parts:[w],count:Math.max(1,parts.length)};
+  });
+}
+
+function renderSyllable(){
+  // 隨機選10題（5題計數 + 5題拼回）
+  const db=getSyllableData();
+  const shuffled=[...db].sort(()=>Math.random()-0.5);
+  state.syllableQuestions=[];
+  // 前5題：數音節（幾個音節？）
+  const countItems=shuffled.slice(0,Math.min(5,shuffled.length));
+  countItems.forEach(item=>{
+    state.syllableQuestions.push({type:'count',word:item.word,syl:item.syl,answer:item.count});
+  });
+  // 後5題：選音節（選出正確音節分法）
+  const splitItems=shuffled.slice(Math.min(5,shuffled.length),Math.min(10,shuffled.length));
+  splitItems.forEach(item=>{
+    // 產生3個錯誤選項：亂排音節
+    const wrong1=item.syl.length>1?[...item.syl].reverse().join('-'):item.word+'\'s';
+    // 產生不同切法
+    const altSplit=item.word.length>4?[item.word.slice(0,Math.floor(item.word.length/2)),item.word.slice(Math.floor(item.word.length/2))]:item.syl;
+    const wrong2=altSplit.join('·');
+    const wrong3=item.word.split('').slice(0,3).join('')+'-'+item.word.slice(3)||item.word;
+    const correct=item.syl.join('-');
+    const opts=shuffleArr([correct,wrong1,wrong2]).slice(0,3);
+    if(!opts.includes(correct))opts[0]=correct;
+    state.syllableQuestions.push({type:'split',word:item.word,syl:item.syl,answer:correct,opts:shuffleArr(opts)});
+  });
+  state.syllableScore=0;
+  state.syllableTotal=state.syllableQuestions.length;
+  renderSyllableQ(0);
+}
+
+function shuffleArr(arr){return [...arr].sort(()=>Math.random()-0.5);}
+
+function renderSyllableQ(qi){
+  const qs=state.syllableQuestions;
+  if(qi>=qs.length){
+    saveHistory('syllable',state.syllableScore,qs.length);
+    showResult(state.syllableScore,qs.length);
+    return;
+  }
+  const q=qs[qi];
+  const pct=(qi/qs.length)*100;
+  if(q.type==='count'){
+    // 數音節題：選1/2/3/4
+    const correctN=q.answer;
+    const allNums=[1,2,3,4];
+    const wrongNums=allNums.filter(n=>n!==correctN).sort(()=>Math.random()-0.5).slice(0,2);
+    const opts=shuffleArr([correctN,...wrongNums]);
+    document.getElementById('activityContent').innerHTML=`
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+      <div style="text-align:right;font-size:13px;color:var(--on-surface-var);margin-bottom:12px">${qi+1} / ${qs.length}</div>
+      <div class="phonics-quiz-card">
+        <div style="font-size:13px;color:var(--on-surface-var);margin-bottom:6px;text-align:center">🔡 這個單字有幾個音節？</div>
+        <div class="phonics-quiz-word" onclick="speakWord('${q.word.replace(/'/g,"\\'")}')">${q.word} 🔊</div>
+        <div style="font-size:12px;color:var(--on-surface-var);text-align:center;margin-bottom:12px">點擊單字聆聽發音</div>
+        <div class="phonics-choices" style="grid-template-columns:repeat(${opts.length},1fr)">
+          ${opts.map(n=>`<button class="phonics-choice" onclick="answerSyllableCount(this,${n},${correctN},${qi},'${q.word.replace(/'/g,"\\'")}','${q.syl.join('-')}')">${n}<br><small>音節</small></button>`).join('')}
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+          <span style="font-size:13px;color:var(--on-surface-var)">得分：${state.syllableScore}/${qi}</span>
+          <button class="next-btn" id="sylNextBtn" onclick="renderSyllableQ(${qi+1})">下一題 →</button>
+        </div>
+      </div>`;
+  } else {
+    // 選音節分法題
+    document.getElementById('activityContent').innerHTML=`
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+      <div style="text-align:right;font-size:13px;color:var(--on-surface-var);margin-bottom:12px">${qi+1} / ${qs.length}</div>
+      <div class="phonics-quiz-card">
+        <div style="font-size:13px;color:var(--on-surface-var);margin-bottom:6px;text-align:center">🔡 哪個才是正確的音節分法？</div>
+        <div class="phonics-quiz-word" onclick="speakWord('${q.word.replace(/'/g,"\\'")}')">${q.word} 🔊</div>
+        <div class="quiz-options" style="margin-top:12px">
+          ${q.opts.map(o=>`<button class="quiz-opt" onclick="answerSyllableSplit(this,'${o.replace(/'/g,"\\'")}','${q.answer.replace(/'/g,"\\'")}',${qi},'${q.word.replace(/'/g,"\\'")}')">${o}</button>`).join('')}
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+          <span style="font-size:13px;color:var(--on-surface-var)">得分：${state.syllableScore}/${qi}</span>
+          <button class="next-btn" id="sylNextBtn" onclick="renderSyllableQ(${qi+1})">下一題 →</button>
+        </div>
+      </div>`;
+  }
+  setTimeout(()=>speakWord(q.word),300);
+}
+
+function answerSyllableCount(btn,chosen,correct,qi,word,sylStr){
+  document.querySelectorAll('.phonics-choice').forEach(b=>b.disabled=true);
+  if(chosen===correct){
+    btn.style.borderColor='var(--green)';btn.style.background='var(--green-bg)';
+    state.syllableScore++;
+    showToast('✅ 正確！'+word+' → '+sylStr.replace(/-/g,' · '));
+  } else {
+    btn.style.borderColor='var(--red)';btn.style.background='var(--red-bg)';
+    document.querySelectorAll('.phonics-choice').forEach(b=>{if(parseInt(b.textContent)===correct){b.style.borderColor='var(--green)';b.style.background='var(--green-bg)';}});
+    showToast('❌ 答案是 '+correct+' 個音節：'+sylStr.replace(/-/g,' · '));
+  }
+  const nb=document.getElementById('sylNextBtn');if(nb)nb.style.display='block';
+}
+
+function answerSyllableSplit(btn,chosen,correct,qi,word){
+  document.querySelectorAll('.quiz-opt').forEach(b=>{
+    if(b.textContent.trim()===correct)b.classList.add('correct');
+    else if(b===btn&&chosen!==correct)b.classList.add('wrong');
+    b.disabled=true;
+  });
+  if(chosen===correct){state.syllableScore++;showToast('✅ 正確！');}
+  else showToast('❌ 答案是：'+correct);
+  const nb=document.getElementById('sylNextBtn');if(nb)nb.style.display='block';
+}
+
+// ── END SYLLABLE TEST ──────────────────────────────────────────
 
 // RESULT
 function showResult(score,total){
