@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v2.0.2';
+const CACHE_VERSION = 'v2.0.3';
 const CACHE_NAME = `textbook-app-${CACHE_VERSION}`;
 const FILES_TO_CACHE = ['/index.html', '/manifest.json', '/icon-192.png', '/icon-512.png'];
 
